@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxWidth="720.0" prefHeight="400.0" prefWidth="720.0" styleClass="background" stylesheets="@styleSheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OnePurchaseController">
+   <children>
+      <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="720.0" styleClass="border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <bottom>
+            <HBox alignment="CENTER_RIGHT" maxHeight="50.0" prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Text fx:id="purchaseTxt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Purchase Number: ">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="15.0" top="5.0" />
+                     </HBox.margin>
+                  </Text>
+                  <Text fx:id="totalPriceTxt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Price: ">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="15.0" top="5.0" />
+                     </HBox.margin>
+                  </Text>
+                  <Text fx:id="dateTxt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Of Purchase: ">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="30.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+            </HBox>
+         </bottom>
+         <center>
+            <VBox fx:id="purchaseBox" alignment="CENTER" prefHeight="400.0" prefWidth="800.0" styleClass="background" BorderPane.alignment="CENTER" />
+         </center>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </BorderPane>
+   </children>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</AnchorPane>

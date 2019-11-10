@@ -1,0 +1,92 @@
+.bouton{
+    -fx-text-fill: white;
+    -fx-background-color: #303030;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-fill: white;
+    -fx-start-margin: 5;
+    -fx-end-margin: 5;
+}
+
+.bouton:hover{
+    -fx-border-color:#45bf55;
+    -fx-text-fill: #45bf55;
+}
+
+.combo-box .cell{
+    -fx-text-fill: white;
+}
+
+.combo-box  .list-cell{
+     -fx-background-color: #303030;
+    -fx-border-color: #303030;
+ }
+
+.combo-box .cell:hover{
+    -fx-border-color: #242424;
+    -fx-border-color: #505050;
+}
+
+.combo-box .scroll-bar{
+    -fx-background-color: #303030;
+}
+
+
+.background{
+    -fx-background-color: #242424;
+}
+.border{
+    -fx-border-width: 2;
+    -fx-border-color: #45bf55;
+    -fx-border-radius: 5;
+}
+.thumbnail{
+    -fx-border-color: #45bf55;
+    -fx-border-radius: 5;
+    -fx-border-width: 1;
+
+}
+.thumbnail:hover {
+    -fx-background-color: #303030;
+
+}
+
+.thumbnail:hover Text{
+    -fx-fill: #45bf55;
+}
+
+.hbox{
+    -fx-alignment: center-right;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: #242424;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: white;
+    -fx-background-radius: 5em;
+}
+

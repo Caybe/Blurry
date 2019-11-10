@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" prefHeight="600.0" prefViewportHeight="800.0" prefViewportWidth="500.0" prefWidth="1100.0" stylesheets="@../../../Projet/src/view/styleSheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StatisticController">
+   <content>
+      <VBox alignment="CENTER" styleClass="background" stylesheets="@styleSheet.css">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Statistics" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="5.0" />
+               </VBox.margin>
+            </Text>
+            <VBox alignment="CENTER" layoutX="31.0" layoutY="-6.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Key Figures" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <VBox prefHeight="74.0" prefWidth="1079.0">
+                     <children>
+                        <Text fx:id="nbMovieTxt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="- Number Of Movie: ">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="nbPurchaseTxt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="- Number Of Purchase: ">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="moneyEarnedTxt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="- Money Earned: ">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" />
+                     </VBox.margin>
+                  </VBox>
+                  <Separator prefWidth="200.0" />
+                  <BarChart fx:id="purchaseChart" alternativeColumnFillVisible="true" barGap="2.0" categoryGap="4.0" maxWidth="850.0" minHeight="500.0" prefHeight="500.0" style="-fx-background-color: white;" title="Top 10 Most Purchased Movies">
+                     <xAxis>
+                        <CategoryAxis prefHeight="30.0" prefWidth="414.0" side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                        <NumberAxis label="Number Of Purchase" lowerBound="1.0" side="LEFT" />
+                     </yAxis>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </BarChart>
+                  <Separator prefWidth="200.0" />
+                  <BarChart fx:id="rateChart" alternativeColumnFillVisible="true" barGap="2.0" categoryGap="4.0" maxWidth="850.0" minHeight="500.0" prefHeight="500.0" style="-fx-background-color: white;" title="Top 10 Top Rated Movie">
+                     <xAxis>
+                        <CategoryAxis prefHeight="30.0" prefWidth="414.0" side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                        <NumberAxis label="Rate" lowerBound="1.0" side="LEFT" />
+                     </yAxis>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </BarChart>
+                  <Separator prefWidth="200.0" />
+                  <PieChart fx:id="categoyChart" labelLineLength="50.0" maxWidth="850.0" minHeight="500.0" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: white;" title="Category Purchase Repartition">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </PieChart>
+               </children>
+               <styleClass>
+                  <String fx:value="background" />
+                  <String fx:value="border" />
+               </styleClass>
+            </VBox>
+         </children>
+      </VBox>
+   </content>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</ScrollPane>

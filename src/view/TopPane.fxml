@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="123.0" prefWidth="1187.0" styleClass="background" stylesheets="@styleSheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TopPaneController">
+   <children>
+      <VBox layoutX="10.0" layoutY="10.0" prefHeight="123.0" prefWidth="1210.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <BorderPane prefHeight="45.0" prefWidth="1187.0">
+               <left>
+                  <ImageView fitHeight="86.0" fitWidth="253.0" onMouseClicked="#titleClick" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                     <image>
+                        <Image url="@../images/logos/logov2.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </left>
+               <right>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="86.0" prefWidth="296.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Text fx:id="currentClient" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" visible="false">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
+                        <Button fx:id="profileBtn" alignment="CENTER" minWidth="70.0" mnemonicParsing="false" onAction="#accessProfileRequest" prefWidth="70.0" styleClass="bouton" stylesheets="@styleSheet.css" text="Profile" textAlignment="CENTER">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="5.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="cartBtn" alignment="CENTER" minWidth="70.0" mnemonicParsing="false" onAction="#accessCart" prefWidth="70.0" styleClass="bouton" stylesheets="@styleSheet.css" text="Cart" textAlignment="CENTER">
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </right>
+               <bottom>
+                  <BorderPane maxHeight="45.0" prefHeight="45.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <center>
+                        <ToolBar prefHeight="45.0" prefWidth="1233.0" styleClass="background" BorderPane.alignment="CENTER">
+                           <items>
+                              <ComboBox fx:id="filterComboBox" maxHeight="35.0" minHeight="35.0" onAction="#filter" prefWidth="150.0" promptText="Filter" styleClass="bouton" stylesheets="@styleSheet.css" />
+                              <ComboBox fx:id="categoryComboBox" maxHeight="35.0" minHeight="35.0" onAction="#research" prefWidth="150.0" promptText="Category" styleClass="bouton" stylesheets="@styleSheet.css" />
+                              <TextField fx:id="researchField" maxHeight="35.0" minHeight="35.0" onAction="#research" prefHeight="35.0" prefWidth="438.0" promptText="Research Movie, Actor, Director" styleClass="bouton" stylesheets="@styleSheet.css">
+                                 <cursor>
+                                    <Cursor fx:constant="TEXT" />
+                                 </cursor>
+                              </TextField>
+                           </items>
+                        </ToolBar>
+                     </center>
+                     <right>
+                        <Button fx:id="signInBtn" alignment="CENTER" minWidth="70.0" mnemonicParsing="false" onAction="#signInBtn" styleClass="bouton" stylesheets="@styleSheet.css" text="Sign In" textAlignment="CENTER" BorderPane.alignment="CENTER">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <BorderPane.margin>
+                              <Insets right="10.0" />
+                           </BorderPane.margin>
+                        </Button>
+                     </right>
+                  </BorderPane>
+               </bottom>
+            </BorderPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="background" stylesheets="@styleSheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ProfileController">
+   <children>
+      <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <VBox alignment="TOP_CENTER" maxHeight="600.0" maxWidth="450.0" prefHeight="400.0" prefWidth="450.0" styleClass="border" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify Profile" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="19.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="errorTxt" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" visible="false">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="successTxt" fill="#00ff15" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" visible="false">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="nameField" maxWidth="300.0" onAction="#modifyProfile" promptText="Name">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="surnameField" maxWidth="300.0" onAction="#modifyProfile" promptText="Surname">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="emailField" maxWidth="300.0" onAction="#modifyProfile" promptText="Email">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="15.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <DatePicker fx:id="birthdayDate" maxWidth="300.0" prefWidth="300.0" promptText="Birthday">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </DatePicker>
+                        <PasswordField fx:id="passwordField" maxWidth="300.0" onAction="#modifyProfile" promptText="New Password">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="15.0" />
+                           </VBox.margin>
+                        </PasswordField>
+                        <PasswordField fx:id="rePasswdField" maxWidth="300.0" onAction="#modifyProfile" promptText="Repeat New Password">
+                           <VBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </VBox.margin>
+                        </PasswordField>
+                        <Button mnemonicParsing="false" onAction="#modifyProfile" styleClass="bouton" text="Modify Profile">
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="20.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <BorderPane maxHeight="50.0" minHeight="50.0" prefHeight="50.0" prefWidth="200.0" style="-fx-border-width: 2px 0px 0px 0px;" styleClass="border">
+                     <center>
+                        <Button fx:id="deleteAccBtn" mnemonicParsing="false" onAction="#deleteAccount" styleClass="bouton" text="Delete Account" textAlignment="CENTER" BorderPane.alignment="CENTER" />
+                     </center>
+                  </BorderPane>
+               </children>
+               <BorderPane.margin>
+                  <Insets bottom="5.0" left="5.0" top="5.0" />
+               </BorderPane.margin>
+            </VBox>
+         </center>
+         <right>
+            <VBox alignment="CENTER" maxWidth="202.0" prefHeight="400.0" prefWidth="202.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="130.0" styleClass="bouton" text="Your Whish List">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="purshaseBtn" mnemonicParsing="false" onAction="#purchaseBtnHandler" prefHeight="33.0" prefWidth="130.0" styleClass="bouton" text="Your purchases">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="addMovieBtn" mnemonicParsing="false" onAction="#addMovieBtn" prefHeight="35.0" prefWidth="130.0" styleClass="bouton" text="Add Movie">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></Button>
+                  <Button fx:id="statBtn" mnemonicParsing="false" onAction="#statBtnHandler" prefHeight="35.0" prefWidth="130.0" styleClass="bouton" text="Statistics">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </right>
+         <top>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Text>
+         </top>
+      </BorderPane>
+   </children>
+</AnchorPane>

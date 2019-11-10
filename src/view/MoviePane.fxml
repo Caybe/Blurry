@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.media.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="300.0" prefHeight="300.0" prefWidth="800.0" styleClass="background" stylesheets="@styleSheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MovieController">
+   <children>
+      <BorderPane layoutX="239.0" layoutY="86.0" maxHeight="300.0" prefHeight="542.0" prefWidth="1000.0" styleClass="border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <right>
+            <ImageView fx:id="imageMovie" fitHeight="417.0" fitWidth="276.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </BorderPane.margin></ImageView>
+         </right>
+         <center>
+            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="TOP_LEFT">
+               <children>
+                  <VBox prefHeight="242.0" prefWidth="423.0">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="descriptionTxt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="500.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Main Actors:">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="actorsTxt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin></Text>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Director:">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="directorTxt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin></Text>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Categories:">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="categoriesTxt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" />
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox prefHeight="242.0" prefWidth="143.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Date Of Release:">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Text fx:id="releaseTxt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="release">
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin></Text>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Rate:">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Text fx:id="rateTxt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="rate">
+                                 <HBox.margin>
+                                    <Insets top="5.0" />
+                                 </HBox.margin></Text>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Price:">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <Text fx:id="priceTxt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="price">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Text fx:id="yourRateTxt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Rate:">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
+                              </Text>
+                              <RadioButton fx:id="rd1" mnemonicParsing="false" onAction="#rate1" text="1" textFill="WHITE" />
+                              <RadioButton fx:id="rd2" mnemonicParsing="false" onAction="#rate2" text="2" textFill="WHITE" />
+                              <RadioButton fx:id="rd3" contentDisplay="CENTER" mnemonicParsing="false" onAction="#rate3" text="3" textFill="WHITE" />
+                              <RadioButton fx:id="rd4" mnemonicParsing="false" onAction="#rate4" text="4" textFill="WHITE" />
+                              <RadioButton fx:id="rd5" mnemonicParsing="false" onAction="#rate5" text="5" textFill="WHITE" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </center>
+         <bottom>
+            <BorderPane prefHeight="47.0" prefWidth="974.0" BorderPane.alignment="CENTER">
+               <left>
+                <Button mnemonicParsing="false" onAction="#backBtn" styleClass="bouton" text="Back" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets bottom="5.0" left="15.0" />
+                     </BorderPane.margin>
+                  </Button>
+               </left>
+               <right>
+                  <HBox>
+                     <children>
+                        <Text fx:id="successTxt" fill="#00ff40" strokeType="OUTSIDE" strokeWidth="0.0" text="Movie Successfully Added!" visible="false">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Button fx:id="actionBtn" alignment="CENTER" mnemonicParsing="false" onAction="#actionBtnHandler" prefHeight="35.0" prefWidth="101.0" styleClass="bouton" text="Add to cart" BorderPane.alignment="CENTER" HBox.hgrow="SOMETIMES">
+                           <BorderPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="15.0" />
+                           </BorderPane.margin>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </right>
+            </BorderPane>
+         </bottom>
+         <top>
+            <Text fx:id="titleTxt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="MOVIE TITLE" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="31.0" />
+               </font>
+            </Text>
+         </top>
+      </BorderPane>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</AnchorPane>
