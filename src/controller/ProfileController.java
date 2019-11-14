@@ -172,7 +172,7 @@ public class ProfileController {
         deleteAccBtn.setDisable(false);
         statBtn.setVisible(false);
         purchaseBtn.setVisible(true);
-        whishBtn.setVisible(false);
+        whishBtn.setVisible(true);
         clientBtn.setVisible(false);
     }
 

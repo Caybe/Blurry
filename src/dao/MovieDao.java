@@ -60,7 +60,7 @@ public class MovieDao {
             statement.setString(2,movie.getDescription());
             statement.setString(3, movie.getRelease_date());
             statement.setString(4, movie.getImage());
-            statement.setFloat(6, movie.getPrice());
+            statement.setFloat(5, movie.getPrice());
 
             statement.executeUpdate();
         } catch (SQLException e) {

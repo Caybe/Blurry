@@ -1,10 +1,7 @@
 package controller;
 
 import connection.Connect;
-import dao.CategoryDAO;
-import dao.MovieDao;
-import dao.PurchaseDAO;
-import dao.RateDAO;
+import dao.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -33,12 +30,15 @@ public class StatisticController {
     @FXML
     private Text nbMovieTxt;
     @FXML
+    private Text nbClientTxt;
+    @FXML
     private ScrollPane scrollPane;
 
     private CategoryDAO categoryDAO;
     private PurchaseDAO purchaseDAO;
     private MovieDao movieDao;
     private RateDAO rateDAO;
+    private ClientDAO clientDAO;
 
 
     public StatisticController() {
@@ -46,6 +46,7 @@ public class StatisticController {
         purchaseDAO = new PurchaseDAO(Connect.getInstance());
         movieDao = new MovieDao(Connect.getInstance());
         rateDAO = new RateDAO(Connect.getInstance());
+        clientDAO = new ClientDAO(Connect.getInstance());
     }
 
     @FXML
@@ -74,6 +75,7 @@ public class StatisticController {
         /* Figures */
         moneyEarnedTxt.setText(moneyEarnedTxt.getText() + purchaseDAO.getMoneyEarned() + "€");
         nbMovieTxt.setText(nbMovieTxt.getText() + movieDao.getNumberOfMovie());
+        nbClientTxt.setText(nbClientTxt.getText() + clientDAO.getNbClient());
         nbPurchaseTxt.setText(nbPurchaseTxt.getText() + purchaseDAO.getNumberOfPurchase());
 
         /* Category Pie Chart */

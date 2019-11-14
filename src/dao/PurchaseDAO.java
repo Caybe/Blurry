@@ -43,7 +43,7 @@ public class PurchaseDAO {
 
     public ArrayList<Integer> getPurchaseIds(int client_id){
         ArrayList<Integer> purchaseId = new ArrayList<>();
-        String sql = "SELECT DISTINCT purchase_id FROM purchase WHERE client_id = "+ client_id;
+        String sql = "SELECT DISTINCT purchase_id, purchase.date_of_purchase FROM purchase WHERE client_id = "+ client_id +" ORDER BY date_of_purchase DESC";
         try{
             ResultSet result = this.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(sql);
 

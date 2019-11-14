@@ -194,6 +194,7 @@ public class MovieManagementController {
         for(Actor actor: actors){
             HBox hbox = new HBox();
             hbox.getStyleClass().add("hbox");
+            hbox.setSpacing(5);
             Button deleteButton = new Button("x");
 
             deleteButton.getStyleClass().add("bouton");
@@ -216,6 +217,7 @@ public class MovieManagementController {
         for(Director director: directors){
             HBox hbox = new HBox();
             hbox.getStyleClass().add("hbox");
+            hbox.setSpacing(5);
             Button deleteButton = new Button("x");
 
             deleteButton.getStyleClass().add("bouton");
@@ -239,6 +241,7 @@ public class MovieManagementController {
         for(Category category: categories){
             HBox hbox = new HBox();
             hbox.getStyleClass().add("hbox");
+            hbox.setSpacing(5);
             Button deleteButton = new Button("x");
             deleteButton.getStyleClass().add("bouton");
             Text categoryName = new Text();
@@ -288,7 +291,7 @@ public class MovieManagementController {
         if(!addActorField.getText().isEmpty()){
             Actor actor = new Actor();
             actor.setActor_id(0);
-            actor.setName(addActorField.getText());
+            actor.setName(addActorField.getText().trim());
             if(!actorDAO.exist(actor.getName())){
                 actorDAO.insertRow(actor.getName());
             }
@@ -303,7 +306,7 @@ public class MovieManagementController {
         if(!addDirectorField.getText().isEmpty()){
             Director director = new Director();
             director.setDirector_id(0);
-            director.setName(addDirectorField.getText());
+            director.setName(addDirectorField.getText().trim());
             if(!directorDAO.exist(director.getName())){
                 directorDAO.insertRow(director.getName());
             }
@@ -318,7 +321,7 @@ public class MovieManagementController {
     public void addCategory(){
             Category category = new Category();
             category.setCategory_id(0);
-            category.setName(categoryCombo.getSelectionModel().getSelectedItem());
+            category.setName(categoryCombo.getSelectionModel().getSelectedItem().trim());
             if(!categoryDAO.exist(category.getName())){
                 categoryDAO.insertRow(category);
             }

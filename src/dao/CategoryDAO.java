@@ -196,9 +196,9 @@ public class CategoryDAO {
 
     public ObservableList<PieChart.Data> getCategoryPurchased(){
         ObservableList<PieChart.Data> categoriesPurchased = FXCollections.observableArrayList();
-        String sql = "SELECT category.name, count(category.category_id) FROM movie_categories" +
+        String sql = "SELECT category.name, count(category.category_id) as nbPurchase FROM movie_categories" +
                 " INNER JOIN purchase p on movie_categories.movie_id = p.movie_id" +
-                " INNER JOIN  public.category ON category.category_id = movie_categories.category_id GROUP BY category.category_id";
+                " INNER JOIN  public.category ON category.category_id = movie_categories.category_id GROUP BY category.category_id ORDER BY nbPurchase";
         try{
             ResultSet result = this.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(sql);
 

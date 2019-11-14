@@ -36,9 +36,21 @@ public class ClientDAO {
         }
     }
 
+    /**
+     * Replace the client in table purchase and rate the client by the deleted profile client (client_id=-1)
+     * Delete the client's cart
+     * Delete the client
+     * @param client
+     */
     public void deleteRow(Client client){
         try {
-            PreparedStatement statement = conn.prepareStatement("DELETE FROM client WHERE client_id =" + client.getClient_id());
+            PreparedStatement statement = conn.prepareStatement("UPDATE purchase SET client_id = -1 WHERE client_id =" + client.getClient_id());
+            statement.executeUpdate();
+            statement = conn.prepareStatement("UPDATE rate SET client_id = -1 WHERE client_id =" + client.getClient_id());
+            statement.executeUpdate();
+            statement = conn.prepareStatement("DELETE FROM cart WHERE client_id = " + client.getClient_id());
+            statement.executeUpdate();
+            statement = conn.prepareStatement("DELETE FROM client WHERE client_id =" + client.getClient_id());
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -67,7 +79,7 @@ public class ClientDAO {
 
     public Client selectRow(int client_id){
         Client client = new Client();
-        String sql = "SELECT * FROM user WHERE client = " + client_id;
+        String sql = "SELECT * FROM client WHERE client_id = " + client_id;
 
         try{
             ResultSet result = this.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(sql);
@@ -90,7 +102,7 @@ public class ClientDAO {
 
     public ArrayList<Client> getAllRows(){
         ArrayList<Client> clients = new ArrayList<>();
-        String sql = "SELECT * FROM client";
+        String sql = "SELECT * FROM client ORDER BY client.surname, client.name";
 
         try{
             ResultSet result = this.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(sql);
@@ -113,6 +125,27 @@ public class ClientDAO {
             e.printStackTrace();
         }
         return clients;
+    }
+
+    /**
+     * Return the number of registered clients minus 2 (admin and delete profile)
+     * @return nbClient
+     */
+    public int getNbClient(){
+        int nbClient = 0;
+        String sql = "SELECT count(client_id)-2 FROM client";
+
+        try{
+            ResultSet result = this.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(sql);
+
+            if(result.first()){
+                nbClient = result.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return nbClient;
     }
 
     public Client getByEmail(String email){
