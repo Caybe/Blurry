@@ -19,11 +19,11 @@ public class PurchaseDAO {
 
     public void insertRow(Purchase purchase){
         try {
-            PreparedStatement statement = conn.prepareStatement("INSERT INTO purchase (purchase_id, client_id, movie_id, date_of_purchase) VALUES(?,?,?, NOW())");
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO purchase (purchase_id, client_id, movie_id, date_of_purchase, price) VALUES(?,?,?, NOW(), ?)");
             statement.setInt(1, purchase.getPurchaseId());
             statement.setInt(2,purchase.getClient_id());
             statement.setInt(3,purchase.getMovie_id());
-
+            statement.setFloat(4, purchase.getPrice());
             statement.executeUpdate();
 
         } catch (SQLException e) {
@@ -75,16 +75,15 @@ public class PurchaseDAO {
 
     public HashMap<Movie, Float> getClientPurchase(int client_id, int purchaseId){
         HashMap<Movie, Float> movies = new HashMap<Movie, Float>();
-        String sql = "SELECT DISTINCT movie.*, purchase.price FROM movie INNER JOIN purchase ON movie.movie_id = purchase.movie_id WHERE movie.movie_id IN" +
+        String sql = "SELECT DISTINCT movie.*, purchase.price as pprice FROM movie INNER JOIN purchase ON movie.movie_id = purchase.movie_id WHERE movie.movie_id IN" +
                 "(SELECT movie_id FROM purchase WHERE client_id = " + client_id + " AND purchase_id = "+ purchaseId +")";
         try{
             ResultSet result = this.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(sql);
 
-
             while (result.next()){
-                Movie movie = new Movie(result.getInt("movie_id"), result.getString("title"), result.getString("description"), result.getString("release_date"), result.getString("image"), result.getFloat("rate"),result.getFloat("price"));
+                Movie movie = new Movie(result.getInt("movie_id"), result.getString("title"), result.getString("description"), result.getString("release_date"), result.getString("image"), result.getFloat("rate"),result.getFloat("pprice"));
 
-                movies.put(movie, result.getFloat("price"));
+                movies.put(movie, result.getFloat("pprice"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -162,7 +161,7 @@ public class PurchaseDAO {
 
     public float getMoneyEarned(){
         float money = 0;
-        String sql = "SELECT sum(price) FROM  movie INNER JOIN purchase p ON movie.movie_id = p.movie_id";
+        String sql = "SELECT sum(price) FROM  purchase";
         try{
             ResultSet result = this.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(sql);
             if(result.first()){

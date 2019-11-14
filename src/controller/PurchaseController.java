@@ -65,7 +65,7 @@ public class PurchaseController {
                     onePurchaseController.setPurchaseId(purchaseId);
                     Date dateSql = purchaseDAO.getPurchaseDate(purchaseId);
                     onePurchaseController.setDateOfPurchase(dateSql);
-                    onePurchaseController.initialize(); // Refreshing the controller with the selected Movie
+                    onePurchaseController.initialize();
                     cartBox.getChildren().add(moviePane);
                 } catch (IOException e) {
                     e.printStackTrace();

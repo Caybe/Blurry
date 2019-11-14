@@ -27,7 +27,6 @@ public class TopPaneController {
     @FXML
     private ComboBox<String> filterComboBox;
 
-
     private MainApp main;
     private Client client = null;
     private CategoryDAO categoryDAO;
@@ -76,12 +75,11 @@ public class TopPaneController {
         categoryComboBox.setValue("Category");
 
         /* Popuating the filter ComboBox */
-        if(!filterComboBox.getItems().isEmpty()){
-            filterComboBox.getItems().clear();
+        if(filterComboBox.getItems().isEmpty()){
+            filterComboBox.getItems().add("Filter");
+            filterComboBox.getItems().add("Top Rated");
+            filterComboBox.getItems().add("Most Purchased");
         }
-        filterComboBox.getItems().add("Filter");
-        filterComboBox.getItems().add("Top Rated");
-        filterComboBox.getItems().add("Most Purchased");
         filterComboBox.setValue("Filter");
     }
 
@@ -150,9 +148,12 @@ public class TopPaneController {
     @FXML
     public void filter(){
         String selectedFilter = "Filter";
-        if(filterComboBox.getValue() != null){
-            filterComboBox.getValue();
+        try{
+            selectedFilter = filterComboBox.getValue();
+        }catch (NullPointerException e){
+
         }
+
 
         main.setFilter(selectedFilter);
         main.showMovieList();

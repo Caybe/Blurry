@@ -88,7 +88,8 @@ public class OnePurchaseController {
                 /* Sum the prices */
                 totalCart += elem.getValue();
             }
-            totalPriceTxt.setText(totalPriceTxt.getText() + totalCart + "€");
+            String total = df.format(totalCart);
+            totalPriceTxt.setText(totalPriceTxt.getText() + total + "€");
             dateTxt.setText(dateTxt.getText() + " " + dateOfPurchase);
             purchaseTxt.setText(purchaseTxt.getText() +" " + purchaseId);
 

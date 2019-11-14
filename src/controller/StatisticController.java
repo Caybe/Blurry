@@ -71,7 +71,7 @@ public class StatisticController {
             event.consume();
         });
 
-        /* Figure */
+        /* Figures */
         moneyEarnedTxt.setText(moneyEarnedTxt.getText() + purchaseDAO.getMoneyEarned() + "€");
         nbMovieTxt.setText(nbMovieTxt.getText() + movieDao.getNumberOfMovie());
         nbPurchaseTxt.setText(nbPurchaseTxt.getText() + purchaseDAO.getNumberOfPurchase());
