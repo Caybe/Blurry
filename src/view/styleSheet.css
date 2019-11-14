@@ -90,3 +90,6 @@
     -fx-background-radius: 5em;
 }
 
+.whiteTxt{
+    -fx-font-size: 5em;
+}

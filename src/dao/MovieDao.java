@@ -21,13 +21,12 @@ public class MovieDao {
 
         try {
             PreparedStatement statement = conn.prepareStatement("INSERT INTO movie (title, description," +
-                    " release_date, image, rate, price) VALUES(?,?,?,?,?,?) ");
+                    " release_date, image, price) VALUES(?,?,?,?,?) ");
             statement.setString(1,movie.getTitle());
             statement.setString(2,movie.getDescription());
             statement.setString(3, movie.getRelease_date());
             statement.setString(4, movie.getImage());
-            statement.setFloat(5, movie.getRate());
-            statement.setFloat(6, movie.getPrice());
+            statement.setFloat(5, movie.getPrice());
 
             statement.executeUpdate();
 
@@ -55,13 +54,12 @@ public class MovieDao {
 
     public void updateRow(Movie movie){
         try {
-            PreparedStatement statement = conn.prepareStatement("UPDATE movie SET title = ?, description = ?, release_date = ?, image = ?, rate = ?, price = ? WHERE movie_id =" + movie.getMovie_id());
+            PreparedStatement statement = conn.prepareStatement("UPDATE movie SET title = ?, description = ?, release_date = ?, image = ?, price = ? WHERE movie_id =" + movie.getMovie_id());
 
             statement.setString(1,movie.getTitle());
             statement.setString(2,movie.getDescription());
             statement.setString(3, movie.getRelease_date());
             statement.setString(4, movie.getImage());
-            statement.setFloat(5, movie.getRate());
             statement.setFloat(6, movie.getPrice());
 
             statement.executeUpdate();
@@ -79,7 +77,7 @@ public class MovieDao {
             ResultSet result = this.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(sql);
 
             if(result.first()){
-                movie = new Movie(movie_id, result.getString("title"), result.getString("description"),result.getString("release_date"), result.getString("image"), result.getFloat("rate"), result.getFloat("price"));
+                movie = new Movie(movie_id, result.getString("title"), result.getString("description"),result.getString("release_date"), result.getString("image"), result.getFloat("price"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -94,7 +92,7 @@ public class MovieDao {
             ResultSet result = this.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(sql);
 
             if(result.first()){
-                movie = new Movie(result.getInt("movie_id"), result.getString("title"), result.getString("description"),result.getString("release_date"), result.getString("image"), result.getFloat("rate"), result.getFloat("price"));
+                movie = new Movie(result.getInt("movie_id"), result.getString("title"), result.getString("description"),result.getString("release_date"), result.getString("image"), result.getFloat("price"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -148,9 +146,9 @@ public class MovieDao {
 
     public ArrayList<Movie> getAllRowsOrderedByRate(){
         ArrayList<Movie> movies = new ArrayList<>();
-        String sql = "SELECT movie.* FROM movie LEFT JOIN rate r ON movie.movie_id = r.movie_id " +
-                "GROUP BY movie.movie_id, movie.rate" +
-                " ORDER BY movie.rate DESC , count(r.movie_id) DESC ";
+        String sql = "SELECT movie.*, avg(r.rate) FROM movie LEFT JOIN rate r ON movie.movie_id = r.movie_id " +
+                "                GROUP BY movie.movie_id " +
+                "                 ORDER BY avg(r.rate) DESC nulls last , count(r.movie_id) DESC";
         return getMovies(movies, sql);
     }
 
@@ -162,7 +160,7 @@ public class MovieDao {
 
 
             while (result.next()){
-                Movie movie = new Movie(result.getInt("movie_id"), result.getString("title"), result.getString("description"), result.getString("release_date"), result.getString("image"), result.getFloat("rate"),result.getFloat("price"));
+                Movie movie = new Movie(result.getInt("movie_id"), result.getString("title"), result.getString("description"), result.getString("release_date"), result.getString("image"), result.getFloat("price"));
 
                 movies.add(movie);
             }

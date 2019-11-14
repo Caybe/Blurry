@@ -81,7 +81,7 @@ public class PurchaseDAO {
             ResultSet result = this.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(sql);
 
             while (result.next()){
-                Movie movie = new Movie(result.getInt("movie_id"), result.getString("title"), result.getString("description"), result.getString("release_date"), result.getString("image"), result.getFloat("rate"),result.getFloat("pprice"));
+                Movie movie = new Movie(result.getInt("movie_id"), result.getString("title"), result.getString("description"), result.getString("release_date"), result.getString("image"), result.getFloat("pprice"));
 
                 movies.put(movie, result.getFloat("pprice"));
             }

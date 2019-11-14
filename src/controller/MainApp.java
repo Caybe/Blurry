@@ -1,5 +1,6 @@
 package controller;
 
+import dao.ClientDAO;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -382,6 +383,24 @@ public class MainApp extends Application {
             //Adding pane to the center of the borderPane
             mainBorderPane.setCenter(statPane);
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showClientList(){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("../view/ClientListPane.fxml"));
+            AnchorPane clientPane = (AnchorPane) loader.load();
+            //Allowing Controller to access the view
+            ClientListController clientListController = loader.getController();
+
+
+            // Getting the BorderPane of the MainViews
+            BorderPane mainBorderPane = (BorderPane) mainPane.getChildren().get(0);
+            //Adding pane to the center of the borderPane
+            mainBorderPane.setCenter(clientPane);
         } catch (IOException e) {
             e.printStackTrace();
         }

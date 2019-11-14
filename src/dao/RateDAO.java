@@ -78,6 +78,22 @@ public class RateDAO {
         return clientRate;
     }
 
+    public float getMovieRate(int movieId){
+        float rate = 0;
+        String sql = "SELECT avg(rate) FROM  rate WHERE movie_id = " + movieId;
+
+        try {
+            ResultSet result = this.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(sql);
+            if(result.first()){
+                rate = result.getFloat(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return rate;
+    }
+
     public boolean exist(int movieId, int clientId){
         String sql= "SELECT * FROM rate WHERE movie_id = " + movieId +" AND client_id = " + clientId;
         try{
@@ -96,14 +112,14 @@ public class RateDAO {
 
     public ArrayList<Movie> getTopMostRated(){
         ArrayList<Movie> movies = new ArrayList<>();
-        String sql = "SELECT movie.* FROM movie INNER JOIN rate r ON movie.movie_id = r.movie_id " +
-                "GROUP BY movie.movie_id, movie.rate " +
-                "ORDER BY movie.rate DESC , count(r.movie_id) DESC LIMIT 10";
+        String sql = "SELECT movie.*, avg(r.rate) FROM movie LEFT JOIN rate r ON movie.movie_id = r.movie_id" +
+                "                                GROUP BY movie.movie_id " +
+                "                               ORDER BY avg(r.rate) DESC nulls last , count(r.movie_id) DESC LIMIT 10";
         try{
             ResultSet result = this.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(sql);
 
             while (result.next()){
-                Movie movie = new Movie(result.getInt("movie_id"), result.getString("title"), result.getString("description"),result.getString("release_date"), result.getString("image"), result.getFloat("rate"), result.getFloat("price"));
+                Movie movie = new Movie(result.getInt("movie_id"), result.getString("title"), result.getString("description"),result.getString("release_date"), result.getString("image"), result.getFloat("price"));
                 movies.add(movie);
             }
 

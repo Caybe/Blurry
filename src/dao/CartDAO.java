@@ -58,7 +58,7 @@ public class CartDAO {
 
 
             while (result.next()){
-                Movie movie = new Movie(result.getInt("movie_id"), result.getString("title"), result.getString("description"), result.getString("release_date"), result.getString("image"), result.getFloat("rate"),result.getFloat("price"));
+                Movie movie = new Movie(result.getInt("movie_id"), result.getString("title"), result.getString("description"), result.getString("release_date"), result.getString("image"), result.getFloat("price"));
 
                 movies.add(movie);
             }

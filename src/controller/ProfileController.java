@@ -38,6 +38,12 @@ public class ProfileController {
     private Button deleteAccBtn;
     @FXML
     private Button statBtn;
+    @FXML
+    private Button whishBtn;
+    @FXML
+    private Button purchaseBtn;
+    @FXML
+    private Button clientBtn;
 
     private MainApp main;
     private Client client;
@@ -64,19 +70,9 @@ public class ProfileController {
             birthdayDate.setValue(client.getBirthday().toLocalDate());
 
             if(client.getClient_id() == 1){ /* If the client is the administrator */
-                surnameField.setDisable(true);
-                nameField.setDisable(true);
-                birthdayDate.setDisable(true);
-                addMovieBtn.setVisible(true);
-                deleteAccBtn.setDisable(true);
-                statBtn.setVisible(true);
+                settingAdminProfile();
             }else{
-                surnameField.setDisable(false);
-                nameField.setDisable(false);
-                birthdayDate.setDisable(false);
-                addMovieBtn.setVisible(false);
-                deleteAccBtn.setDisable(false);
-                statBtn.setVisible(false);
+                settingClientProfile();
             }
         }
 
@@ -168,6 +164,30 @@ public class ProfileController {
         return true;
     }
 
+    private void settingClientProfile(){
+        surnameField.setDisable(false);
+        nameField.setDisable(false);
+        birthdayDate.setDisable(false);
+        addMovieBtn.setVisible(false);
+        deleteAccBtn.setDisable(false);
+        statBtn.setVisible(false);
+        purchaseBtn.setVisible(true);
+        whishBtn.setVisible(false);
+        clientBtn.setVisible(false);
+    }
+
+    private void settingAdminProfile(){
+        surnameField.setDisable(true);
+        nameField.setDisable(true);
+        birthdayDate.setDisable(true);
+        addMovieBtn.setVisible(true);
+        deleteAccBtn.setDisable(true);
+        statBtn.setVisible(true);
+        clientBtn.setVisible(true);
+        purchaseBtn.setVisible(false);
+        whishBtn.setVisible(false);
+    }
+
     private boolean initBirthday() {
         ChronoLocalDate localDate = LocalDate.now();
         if (birthdayDate.getValue() == null) {
@@ -239,5 +259,13 @@ public class ProfileController {
     @FXML
     public void statBtnHandler(){
         main.showStatisticPane();
+    }
+
+    /**
+     *  Handle a click ont the "Client List" button
+     */
+    @FXML
+    public void clientBtnHandler(){
+        main.showClientList();
     }
 }

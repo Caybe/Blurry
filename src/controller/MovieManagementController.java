@@ -1,10 +1,7 @@
 package controller;
 
 import connection.Connect;
-import dao.ActorDAO;
-import dao.CategoryDAO;
-import dao.DirectorDAO;
-import dao.MovieDao;
+import dao.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -74,6 +71,7 @@ public class MovieManagementController {
     private ActorDAO actorDAO;
     private CategoryDAO categoryDAO;
     private DirectorDAO directorDAO;
+    private RateDAO rateDAO;
     private ArrayList<Actor> actors;
     private ArrayList<Category> categories;
     private ArrayList<Director> directors;
@@ -85,7 +83,7 @@ public class MovieManagementController {
         actorDAO = new ActorDAO(Connect.getInstance());
         directorDAO = new DirectorDAO(Connect.getInstance());
         categoryDAO = new CategoryDAO(Connect.getInstance());
-
+        rateDAO = new RateDAO(Connect.getInstance());
     }
 
     public void setMain(MainApp mainApp) {
@@ -159,7 +157,8 @@ public class MovieManagementController {
             titleField.setText(movie.getTitle());
             descriptionArea.setText(movie.getDescription());
             dateField.setText(movie.getRelease_date());
-            rateTxt.setText(String.valueOf(movie.getRate()));
+
+            rateTxt.setText(String.valueOf(rateDAO.getMovieRate(movie.getMovie_id())));
             priceField.setText(String.valueOf(movie.getPrice()));
             /* Init image */
             try {

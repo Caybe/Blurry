@@ -13,6 +13,7 @@ import model.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 
 public class MovieController {
     @FXML
@@ -60,6 +61,7 @@ public class MovieController {
     private PurchaseDAO purchaseDAO;
     private RateDAO rateDAO;
     private ToggleGroup toggleGroup;
+    private DecimalFormat df;
 
     public MovieController() {
 
@@ -72,6 +74,8 @@ public class MovieController {
         rateDAO = new RateDAO(Connect.getInstance());
         toggleGroup = new ToggleGroup();
 
+        df = new DecimalFormat ( ) ;
+        df.setMaximumFractionDigits(2);
     }
 
     public void setMain(MainApp main) {
@@ -101,7 +105,8 @@ public class MovieController {
         successTxt.setVisible(false);
         titleTxt.setText(movie.getTitle());
         descriptionTxt.setText(movie.getDescription());
-        rateTxt.setText(String.valueOf(movie.getRate()));
+        String rate = df.format(rateDAO.getMovieRate(movie.getMovie_id()));
+        rateTxt.setText(rate);
         releaseTxt.setText(movie.getRelease_date());
         priceTxt.setText(movie.getPrice() + "€");
         actorsTxt.setText("");

@@ -101,7 +101,7 @@ public class StatisticController {
         rateChart.getData().clear();
         for(Movie movie : topRate){
             XYChart.Series<String, Float> dataSeries = new XYChart.Series<String, Float>();
-            dataSeries.getData().add(new XYChart.Data<String, Float>("", movie.getRate()));
+            dataSeries.getData().add(new XYChart.Data<String, Float>("", rateDAO.getMovieRate(movie.getMovie_id())));
             dataSeries.setName(movie.getTitle());
 
             rateChart.getData().add(dataSeries);

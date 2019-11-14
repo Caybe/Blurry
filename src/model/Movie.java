@@ -9,7 +9,6 @@ public class Movie {
     private String description;
     private String release_date;
     private String image;
-    private float rate;
     private ArrayList<Director> directors;
     private ArrayList<Category> categories;
     private ArrayList<Actor> actors;
@@ -27,25 +26,23 @@ public class Movie {
     //
     // Constructor used to get the data from the database
     //
-    public Movie(int movie_id, String title, String description, String release_date, String image, float rate, float price) {
+    public Movie(int movie_id, String title, String description, String release_date, String image, float price) {
         this.movie_id = movie_id;
         this.title = title;
         this.description = description;
         this.release_date = release_date;
         this.image = image;
-        this.rate = rate;
         this.price = price;
     }
 
     //
     // Constructor used to insert data in the database (the id_movie will be created by the database)
     //
-    public Movie(String title, String description, String release_date, String image, float rate,float price) {
+    public Movie(String title, String description, String release_date, String image, float price) {
         this.title = title;
         this.description = description;
         this.release_date = release_date;
         this.image = image;
-        this.rate = rate;
         this.price = price;
     }
 
@@ -94,15 +91,6 @@ public class Movie {
     }
 
     public void setImage(String image) { this.image = image; }
-
-    public float getRate() {
-        return rate;
-    }
-
-    public void setRate(float rate) {
-        this.rate = rate;
-    }
-
 
     public ArrayList<Actor> getActors() {
         return actors;
