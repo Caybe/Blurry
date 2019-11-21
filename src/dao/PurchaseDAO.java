@@ -73,10 +73,10 @@ public class PurchaseDAO {
         return  null;
     }
 
-    public HashMap<Movie, Float> getClientPurchase(int client_id, int purchaseId){
+    public HashMap<Movie, Float> getClientPurchase(int clientId, int purchaseId){
         HashMap<Movie, Float> movies = new HashMap<Movie, Float>();
-        String sql = "SELECT DISTINCT movie.*, purchase.price as pprice FROM movie INNER JOIN purchase ON movie.movie_id = purchase.movie_id WHERE movie.movie_id IN" +
-                "(SELECT movie_id FROM purchase WHERE client_id = " + client_id + " AND purchase_id = "+ purchaseId +")";
+        String sql = "SELECT DISTINCT movie.*, purchase.price as pprice FROM movie RIGHT JOIN purchase ON movie.movie_id = purchase.movie_id WHERE movie.movie_id IN" +
+                "(SELECT movie_id FROM purchase WHERE purchase_id = "+ purchaseId +") AND purchase.client_id =" +clientId;
         try{
             ResultSet result = this.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(sql);
 

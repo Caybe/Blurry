@@ -82,7 +82,7 @@
          <right>
             <VBox alignment="CENTER" maxWidth="202.0" prefHeight="400.0" prefWidth="202.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="whishBtn" mnemonicParsing="false" prefHeight="33.0" prefWidth="130.0" styleClass="bouton" text="Your Whish List">
+                  <Button fx:id="whishBtn" mnemonicParsing="false" onAction="#wishBtnHandler" prefHeight="33.0" prefWidth="130.0" styleClass="bouton" text="Your Whish List">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>

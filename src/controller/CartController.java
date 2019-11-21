@@ -56,14 +56,14 @@ public class CartController {
             cartBox.getChildren().clear();
             for(Movie movie : movies){
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("../view/CartComponentPane.fxml"));
+                loader.setLocation(getClass().getResource("../view/MovieElemPane.fxml"));
                 try {
                     AnchorPane moviePane = (AnchorPane) loader.load();
-                    CartComponentController cartComponentController = loader.getController();
-                    cartComponentController.setMainApp(main);
-                    cartComponentController.setMovieToDisplay(movie); // setting the movie to display
-                    cartComponentController.setClient(client);
-                    cartComponentController.initialize(); // Refreshing the controller with the selected Movie
+                    MovieElemController movieElemController = loader.getController();
+                    movieElemController.setMainApp(main);
+                    movieElemController.setMovieToDisplay(movie); // setting the movie to display
+                    movieElemController.setClient(client);
+                    movieElemController.initialize(); // Refreshing the controller with the selected Movie
                     cartBox.getChildren().add(moviePane);
                 } catch (IOException e) {
                     e.printStackTrace();

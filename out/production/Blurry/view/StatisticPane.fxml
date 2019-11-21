@@ -40,6 +40,11 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
+                        <Text fx:id="nbClientTxt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="- Number of Client: ">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Text>
                         <Text fx:id="moneyEarnedTxt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="- Money Earned: ">
                            <font>
                               <Font size="18.0" />

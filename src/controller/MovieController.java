@@ -50,6 +50,8 @@ public class MovieController {
     private RadioButton rd5;
     @FXML
     private Text yourRateTxt;
+    @FXML
+    private Button wishBtn;
 
     private MainApp main;
     private Movie movie;
@@ -60,6 +62,7 @@ public class MovieController {
     private CategoryDAO categorieDAO;
     private PurchaseDAO purchaseDAO;
     private RateDAO rateDAO;
+    WishListDAO wishListDAO;
     private ToggleGroup toggleGroup;
     private DecimalFormat df;
 
@@ -72,6 +75,7 @@ public class MovieController {
         categorieDAO = new CategoryDAO(Connect.getInstance());
         purchaseDAO = new PurchaseDAO(Connect.getInstance());
         rateDAO = new RateDAO(Connect.getInstance());
+        wishListDAO = new WishListDAO(Connect.getInstance());
         toggleGroup = new ToggleGroup();
 
         df = new DecimalFormat ( ) ;
@@ -149,6 +153,7 @@ public class MovieController {
             if(client.getClient_id() == 1){ /* if the user is the administrator */
                 actionBtn.setText("Modify");
                 actionBtn.setVisible(true);
+                wishBtn.setVisible(false);
             }else{      /* if the user is a regular client */
 
                 if(purchaseDAO.exist(movie.getMovie_id(), client.getClient_id())){
@@ -174,7 +179,12 @@ public class MovieController {
                     enableRate();
                 }
 
-
+                wishBtn.setVisible(true);
+                if(wishListDAO.exist(movie.getMovie_id(), client.getClient_id())){
+                    wishBtn.setDisable(true);
+                }else{
+                    wishBtn.setDisable(false);
+                }
             }
         }else{ /* if the user is a visitor the action button redirect to the connection pane */
             actionBtn.setText("Add to cart");
@@ -211,6 +221,18 @@ public class MovieController {
             }
         }else{ /* The user is not connected -> a click redirect him to the connection pane */
             main.showConnection();
+        }
+    }
+
+    /**
+     *  Handle a click on the "Add to wish list" button
+     */
+    @FXML
+    private void wishBtnHandler(){
+        if(client != null){
+            Wish wish = new Wish(movie.getMovie_id(), client.getClient_id());
+            wishListDAO.insertRow(wish);
+            wishBtn.setDisable(true);
         }
     }
 

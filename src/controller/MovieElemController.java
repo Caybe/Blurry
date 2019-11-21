@@ -1,5 +1,7 @@
 package controller;
 
+import connection.Connect;
+import dao.WishListDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -11,7 +13,7 @@ import model.Movie;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class CartComponentController {
+public class MovieElemController {
     @FXML
     private ImageView imageView;
     @FXML
@@ -25,9 +27,10 @@ public class CartComponentController {
     private MainApp main;
     private Movie movie;
     private Client client;
+    private int origin = 0;
     private float price = 0;
 
-    public CartComponentController() {
+    public MovieElemController() {
     }
 
     public void setMainApp(MainApp main) {
@@ -49,6 +52,10 @@ public class CartComponentController {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public void setOrigin(int origin) {
+        this.origin = origin;
     }
 
     @FXML
@@ -81,7 +88,14 @@ public class CartComponentController {
 
     @FXML
     public void removeFromCart(){
-        main.removeFromCart(movie, client);
+        if(origin == 0){
+            main.removeFromCart(movie, client);
+        }else if(origin == 1){
+            WishListDAO wishListDAO = new WishListDAO(Connect.getInstance());
+            wishListDAO.deleteRow(client.getClient_id(), movie.getMovie_id());
+            main.showWishList();
+        }
+
     }
 
     @FXML

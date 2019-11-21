@@ -11,7 +11,6 @@ import model.Movie;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,16 +69,16 @@ public class OnePurchaseController {
             purchaseBox.getChildren().clear();
             for (Map.Entry<Movie, Float> elem : movies.entrySet()) {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("../view/CartComponentPane.fxml"));
+                loader.setLocation(getClass().getResource("../view/MovieElemPane.fxml"));
                 try {
                     AnchorPane moviePane = (AnchorPane) loader.load();
-                    CartComponentController cartComponentController = loader.getController();
-                    cartComponentController.setMainApp(main);
-                    cartComponentController.setMovieToDisplay(elem.getKey()); // setting the movie to display
-                    cartComponentController.setClient(client);
-                    cartComponentController.hideRemoveBtn();
-                    cartComponentController.setPrice(elem.getValue());
-                    cartComponentController.initialize(); // Refreshing the controller with the selected Movie
+                    MovieElemController movieElemController = loader.getController();
+                    movieElemController.setMainApp(main);
+                    movieElemController.setMovieToDisplay(elem.getKey()); // setting the movie to display
+                    movieElemController.setClient(client);
+                    movieElemController.hideRemoveBtn();
+                    movieElemController.setPrice(elem.getValue());
+                    movieElemController.initialize(); // Refreshing the controller with the selected Movie
                     purchaseBox.getChildren().add(moviePane);
                 } catch (IOException e) {
                     e.printStackTrace();

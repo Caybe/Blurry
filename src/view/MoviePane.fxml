@@ -157,6 +157,11 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>
                         </Text>
+                        <Button fx:id="wishBtn" alignment="CENTER" mnemonicParsing="false" onAction="#wishBtnHandler" prefHeight="33.0" prefWidth="126.0" styleClass="bouton" text="Add to wish list">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
                         <Button fx:id="actionBtn" alignment="CENTER" mnemonicParsing="false" onAction="#actionBtnHandler" prefHeight="35.0" prefWidth="101.0" styleClass="bouton" text="Add to cart" BorderPane.alignment="CENTER" HBox.hgrow="SOMETIMES">
                            <BorderPane.margin>
                               <Insets bottom="5.0" left="5.0" right="15.0" />

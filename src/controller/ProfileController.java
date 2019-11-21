@@ -256,6 +256,9 @@ public class ProfileController {
         main.showPurchases(client);
     }
 
+    /**
+     * Handle a click on the "Statistics" button
+     */
     @FXML
     public void statBtnHandler(){
         main.showStatisticPane();
@@ -267,5 +270,13 @@ public class ProfileController {
     @FXML
     public void clientBtnHandler(){
         main.showClientList();
+    }
+
+    /**
+     * Handle a click on the "Your wishList" button
+     */
+    @FXML
+    private void wishBtnHandler(){
+        main.showWishList();
     }
 }

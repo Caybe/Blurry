@@ -19,7 +19,7 @@ public class RateDAO {
     }
 
     /**
-     * Insert a client rate in the rate table. Update the movie rate average
+     * Insert a client rate in the rate table
      * @param rate
      */
     public void insertRow(Rate rate){
@@ -31,32 +31,6 @@ public class RateDAO {
 
             statement.executeUpdate();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        float rateAvg = 0;
-        /* Getting the average rate of the movie */
-        String sql = "SELECT  avg(rate) FROM  rate WHERE movie_id = " + rate.getMovie_id();
-        try {
-            ResultSet result = this.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(sql);
-            if(result.first()){
-                rateAvg = result.getInt(1);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        /* updating the rate field in the movie table */
-        MovieDao movieDao = new MovieDao(Connect.getInstance());
-        Movie movie = movieDao.selectRow(rate.getMovie_id());
-        try {
-            PreparedStatement statement = conn.prepareStatement("UPDATE movie SET  rate = ? WHERE movie_id =" + movie.getMovie_id());
-
-            statement.setFloat(1, rateAvg);
-
-
-            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

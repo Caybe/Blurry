@@ -28,6 +28,7 @@ public class MainApp extends Application {
     private AnchorPane movieManagementPane;
     private AnchorPane purchasePane;
     private AnchorPane cartPane;
+    private AnchorPane wishPane;
     private TopPaneController topPaneController;
     private ProfileController profileController;
     private MovieManagementController movieManagementController;
@@ -35,6 +36,7 @@ public class MainApp extends Application {
     private MovieController movieController;
     private CartController cartController;
     private PurchaseController purchaseController;
+    private WishListController wishListController;
     private int category_id;
     private String research;
     private String filter;
@@ -53,6 +55,7 @@ public class MainApp extends Application {
                 showMovie(1);
                 showCart(null);
                 showPurchases(null);
+                showWishList();
                 showMovieList();
 
             }
@@ -405,6 +408,27 @@ public class MainApp extends Application {
             e.printStackTrace();
         }
     }
+
+    public void showWishList(){
+        try {
+            if (wishListController == null) {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(MainApp.class.getResource("../view/WishListPane.fxml"));
+                wishPane = (AnchorPane) loader.load();
+                //Allowing Controller to access the view
+                wishListController = loader.getController();
+                wishListController.setMainApp(this);
+            }
+            wishListController.initialize();
+            // Getting the BorderPane of the MainViews
+            BorderPane mainBorderPane = (BorderPane) mainPane.getChildren().get(0);
+            //Adding pane to the center of the borderPane
+            mainBorderPane.setCenter(wishPane);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * Init the client in the app
      * @param client
@@ -421,6 +445,8 @@ public class MainApp extends Application {
         cartController.initialize();
         purchaseController.setClient(client);
         purchaseController.initialize();
+        wishListController.setClient(client);
+        wishListController.initialize();
     }
 
     public void removeFromCart(Movie movie, Client client){

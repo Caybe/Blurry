@@ -152,6 +152,14 @@ public class MovieDao {
         return getMovies(movies, sql);
     }
 
+    public ArrayList<Movie> getMovieWished(int clientId){
+        ArrayList<Movie> movies = new ArrayList<>();
+        String sql = "SELECT movie.* FROM movie INNER JOIN wish_list w ON movie.movie_id = w.movie_id " +
+                "WHERE w.client_id = " + clientId;
+
+        return getMovies(movies, sql);
+    }
+
 
     private ArrayList<Movie> getMovies(ArrayList<Movie> movies, String sql) {
 
