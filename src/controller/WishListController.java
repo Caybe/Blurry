@@ -20,7 +20,6 @@ public class WishListController {
     private VBox wishBox;
 
     private MainApp mainApp;
-    private Client client;
     private WishListDAO wishListDAO;
     private MovieDao movieDao;
 
@@ -33,13 +32,10 @@ public class WishListController {
         this.mainApp = mainApp;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
     @FXML
     public void initialize(){
-        if (client != null) {
+        if (mainApp!= null && mainApp.getCurrentClient() != null) {
+            Client client = mainApp.getCurrentClient();
             ArrayList<Movie> movies = new ArrayList<>();
             movies = movieDao.getMovieWished(client.getClient_id());
             wishBox.getChildren().clear();

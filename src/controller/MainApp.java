@@ -40,6 +40,7 @@ public class MainApp extends Application {
     private int category_id;
     private String research;
     private String filter;
+    private Client currentClient;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -51,11 +52,6 @@ public class MainApp extends Application {
             @Override
             public void run() {
                 showTopPane();
-                showProfile();
-                showMovie(1);
-                showCart(null);
-                showPurchases(null);
-                showWishList();
                 showMovieList();
 
             }
@@ -66,6 +62,13 @@ public class MainApp extends Application {
 
     }
 
+    public void setCurrentClient(Client currentClient) {
+        this.currentClient = currentClient;
+    }
+
+    public Client getCurrentClient() {
+        return currentClient;
+    }
 
     /**
     *Init MainView
@@ -261,6 +264,7 @@ public class MainApp extends Application {
                 profileController = loader.getController();
                 profileController.setMain(this);
             }
+            profileController.initialize();
             // Getting the BorderPane of the MainViews
             BorderPane mainBorderPane = (BorderPane) mainPane.getChildren().get(0);
             //Adding pane to the center of the borderPane
@@ -329,7 +333,6 @@ public class MainApp extends Application {
                 cartPane = (AnchorPane) loader.load();
                 //Allowing Controller to access the view
                 cartController = loader.getController();
-                cartController.setClient(client);
                 cartController.setMain(this);
             }
             cartController.initialize();
@@ -357,7 +360,6 @@ public class MainApp extends Application {
                 purchasePane = (AnchorPane) loader.load();
                 //Allowing Controller to access the view
                 purchaseController = loader.getController();
-                purchaseController.setClient(client);
                 purchaseController.setMain(this);
             }
             purchaseController.initialize();
@@ -434,19 +436,8 @@ public class MainApp extends Application {
      * @param client
      */
     public void initSession(Client client){
-        topPaneController.setClient(client);
-        topPaneController.initialize();
-        profileController.setClient(client);
-        profileController.initialize();
-        movieListController.setClient(client);
-        movieController.setClient(client);
-        movieController.initialize();
-        cartController.setClient(client);
-        cartController.initialize();
-        purchaseController.setClient(client);
-        purchaseController.initialize();
-        wishListController.setClient(client);
-        wishListController.initialize();
+        setCurrentClient(client);
+        topPaneController.newSession();
     }
 
     public void removeFromCart(Movie movie, Client client){

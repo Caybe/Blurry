@@ -46,7 +46,6 @@ public class ProfileController {
     private Button clientBtn;
 
     private MainApp main;
-    private Client client;
     private Date birthday;
     private String password;
     private boolean correct;
@@ -63,7 +62,8 @@ public class ProfileController {
 
     @FXML
     public void initialize() {
-        if(client != null){
+        if(main!= null && main.getCurrentClient() != null){
+            Client client = main.getCurrentClient();
             surnameField.setText(client.getSurname());
             nameField.setText(client.getName());
             emailField.setText(client.getEmail());
@@ -79,14 +79,6 @@ public class ProfileController {
 
     }
 
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
     @FXML
     public void modifyProfile() {
         TextInputDialog dialog = new TextInputDialog();
@@ -95,8 +87,9 @@ public class ProfileController {
         dialog.setContentText("Password:");
         Optional<String> result = dialog.showAndWait();
 
+        // checking password
         result.ifPresent(passwd -> {
-            if (BCrypt.checkpw(passwd, client.getPassword())) {
+            if (BCrypt.checkpw(passwd, main.getCurrentClient().getPassword())) {
                 initVariable(nameField);
                 initVariable(surnameField);
                 initVariable(emailField);
@@ -112,9 +105,8 @@ public class ProfileController {
                 } else {
                     correct = false;
                 }
-                System.out.println("Correct : " + correct);
                 if (correct) {
-
+                    Client client = main.getCurrentClient();
                     client.setSurname(surnameField.getText());
                     client.setName(nameField.getText());
                     client.setEmail(emailField.getText());
@@ -242,7 +234,7 @@ public class ProfileController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            clientDAO.deleteRow(client);
+            clientDAO.deleteRow(main.getCurrentClient());
             main.initSession(null);
             main.showMovieList();
         }
@@ -253,7 +245,7 @@ public class ProfileController {
      */
     @FXML
     public void purchaseBtnHandler(){
-        main.showPurchases(client);
+        main.showPurchases(main.getCurrentClient());
     }
 
     /**

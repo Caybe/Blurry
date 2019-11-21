@@ -55,7 +55,6 @@ public class MovieController {
 
     private MainApp main;
     private Movie movie;
-    private Client client;
     private MovieDao movieDao;
     private ActorDAO actorDAO;
     private DirectorDAO directorDAO;
@@ -89,7 +88,6 @@ public class MovieController {
     public void setMovieToDisplay(int movie_id){
         movie = movieDao.selectRow(movie_id);
     }
-    public void setClient(Client client) { this.client = client; }
 
     @FXML
     public void initialize(){
@@ -106,6 +104,7 @@ public class MovieController {
         rd5.setToggleGroup(toggleGroup);
         yourRateTxt.setVisible(false);
 
+        wishBtn.setVisible(true);
         successTxt.setVisible(false);
         titleTxt.setText(movie.getTitle());
         descriptionTxt.setText(movie.getDescription());
@@ -149,7 +148,8 @@ public class MovieController {
         //Removing the last coma in categories list
         categoriesTxt.setText(categoriesTxt.getText().replaceFirst(",", ""));
 
-        if (client != null){
+        if (main!=null && main.getCurrentClient() != null){
+            Client client = main.getCurrentClient();
             if(client.getClient_id() == 1){ /* if the user is the administrator */
                 actionBtn.setText("Modify");
                 actionBtn.setVisible(true);
@@ -160,7 +160,7 @@ public class MovieController {
                     successTxt.setText("Movie already purchased!");
                     successTxt.setVisible(true);
                     actionBtn.setVisible(false);
-
+                    wishBtn.setVisible(false);
                 }else{
                     actionBtn.setDisable(false);
                     actionBtn.setText("Add to cart");
@@ -179,7 +179,7 @@ public class MovieController {
                     enableRate();
                 }
 
-                wishBtn.setVisible(true);
+
                 if(wishListDAO.exist(movie.getMovie_id(), client.getClient_id())){
                     wishBtn.setDisable(true);
                 }else{
@@ -189,7 +189,7 @@ public class MovieController {
         }else{ /* if the user is a visitor the action button redirect to the connection pane */
             actionBtn.setText("Add to cart");
             actionBtn.setVisible(true);
-
+            wishBtn.setVisible(false);
         }
 
     }
@@ -210,7 +210,8 @@ public class MovieController {
      */
     @FXML
     public void actionBtnHandler(){
-        if (client != null){
+        if (main!= null && main.getCurrentClient() != null){
+            Client client = main.getCurrentClient();
             if(client.getClient_id() == 1){ /* if the user is the administrator */
                 main.showMovieManagement(movie.getMovie_id());
             }else{      /* if the user is a regular client */
@@ -229,8 +230,8 @@ public class MovieController {
      */
     @FXML
     private void wishBtnHandler(){
-        if(client != null){
-            Wish wish = new Wish(movie.getMovie_id(), client.getClient_id());
+        if(main!=null && main.getCurrentClient() != null){
+            Wish wish = new Wish(movie.getMovie_id(), main.getCurrentClient().getClient_id());
             wishListDAO.insertRow(wish);
             wishBtn.setDisable(true);
         }
@@ -269,7 +270,7 @@ public class MovieController {
     private void setRate(int clientRate){
         disableRate();
         Rate rate = new Rate();
-        rate.setClient_id(client.getClient_id());
+        rate.setClient_id(main.getCurrentClient().getClient_id());
         rate.setMovie_id(movie.getMovie_id());
         rate.setRate(clientRate);
         rateDAO.insertRow(rate);
@@ -296,7 +297,7 @@ public class MovieController {
      * Select the radio button corresponding to the rate given by the client
      */
     private void setSelectedRadioButton(){
-        int clientRate = rateDAO.getClientRate(client.getClient_id(), movie.getMovie_id());
+        int clientRate = rateDAO.getClientRate(main.getCurrentClient().getClient_id(), movie.getMovie_id());
         switch (clientRate){
             case 1:
                 rd1.setSelected(true);

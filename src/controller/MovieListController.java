@@ -28,7 +28,6 @@ public class MovieListController {
     private MainApp main;
     private MovieDao movieDao;
     private ArrayList<Movie> movies;
-    private Client client;
     private MovieThumbnailController movieThumbnailController;
     private int category_id = 0;
     private String research;
@@ -43,7 +42,6 @@ public class MovieListController {
 
     public void setMain(MainApp main) {
         this.main = main;
-
         initialize();
     }
 
@@ -115,10 +113,6 @@ public class MovieListController {
         }
 
 
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
     }
 
     public void setCategory( int id) {

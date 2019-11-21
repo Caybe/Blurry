@@ -26,7 +26,6 @@ public class CartController {
 
 
     private MainApp main;
-    private Client client;
     private CartDAO cartDAO;
     private ArrayList<Movie> movies;
     private DecimalFormat df;
@@ -44,15 +43,12 @@ public class CartController {
         this.main = mainApp;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
 
     @FXML
     public void initialize(){
         totalCart = 0;
-        if(client != null){
-            movies = cartDAO.getClientCart(client.getClient_id());
+        if(main!=null && main.getCurrentClient() != null){
+            movies = cartDAO.getClientCart(main.getCurrentClient().getClient_id());
             cartBox.getChildren().clear();
             for(Movie movie : movies){
                 FXMLLoader loader = new FXMLLoader();
@@ -62,7 +58,7 @@ public class CartController {
                     MovieElemController movieElemController = loader.getController();
                     movieElemController.setMainApp(main);
                     movieElemController.setMovieToDisplay(movie); // setting the movie to display
-                    movieElemController.setClient(client);
+                    movieElemController.setClient(main.getCurrentClient());
                     movieElemController.initialize(); // Refreshing the controller with the selected Movie
                     cartBox.getChildren().add(moviePane);
                 } catch (IOException e) {
@@ -81,14 +77,14 @@ public class CartController {
         if(!movies.isEmpty()){
             movies.clear();
         }
-        movies.addAll(cartDAO.getClientCart(client.getClient_id()));
+        movies.addAll(cartDAO.getClientCart(main.getCurrentClient().getClient_id()));
 
     }
 
     public void removeMovie(Movie movie){
         if(movies != null){
             Cart cart = new Cart();
-            cart.setClient_id(client.getClient_id());
+            cart.setClient_id(main.getCurrentClient().getClient_id());
             cart.setMovie_id(movie.getMovie_id());
             cartDAO.deleteRow(cart);
             initialize();
@@ -99,7 +95,7 @@ public class CartController {
     public void pay() {
 //        Invoice invoice = new Invoice();
         PurchaseDAO purchaseDAO = new PurchaseDAO(Connect.getInstance());
-        int clientId = client.getClient_id();
+        int clientId = main.getCurrentClient().getClient_id();
         int purchaseId =  purchaseDAO.getNewPurchaseId();
         for(Movie movie : cartDAO.getClientCart(clientId)){
             Purchase purchase = new Purchase();
@@ -108,9 +104,8 @@ public class CartController {
             purchase.setPurchaseId(purchaseId);
             purchase.setPrice(movie.getPrice());
             purchaseDAO.insertRow(purchase);
-
         }
         cartDAO.deleteCart(clientId);
-        main.showPurchases(client);
+        main.showPurchases(main.getCurrentClient());
     }
 }

@@ -21,7 +21,7 @@ public class TopPaneController {
     @FXML
     private Button cartBtn;
     @FXML
-    private ComboBox<String>  categoryComboBox;
+    private ComboBox<String> categoryComboBox;
     @FXML
     private TextField researchField;
     @FXML
@@ -36,38 +36,18 @@ public class TopPaneController {
         categoryDAO = new CategoryDAO(Connect.getInstance());
     }
 
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
     public void setMain(MainApp main) {
         this.main = main;
     }
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         researchField.setDisable(false);
         categoryComboBox.setDisable(false);
-        if(client != null){
-            currentClient.setText(client.getName() +" "+ client.getSurname());
-            currentClient.setVisible(true);
-            profileBtn.setVisible(true);
-            cartBtn.setVisible(true);
-            signInBtn.setText("Logout");
-
-        }else{
-            currentClient.setVisible(false);
-            profileBtn.setVisible(false);
-            cartBtn.setVisible(false);
-            signInBtn.setText("Sign In");
-        }
+        newSession();
 
         /* Populating the category ComboBox*/
-        if(!categoryComboBox.getItems().isEmpty()){
+        if (!categoryComboBox.getItems().isEmpty()) {
             categoryComboBox.getItems().clear();
         }
         categoryComboBox.getItems().add("Category");
@@ -75,7 +55,7 @@ public class TopPaneController {
         categoryComboBox.setValue("Category");
 
         /* Popuating the filter ComboBox */
-        if(filterComboBox.getItems().isEmpty()){
+        if (filterComboBox.getItems().isEmpty()) {
             filterComboBox.getItems().add("Filter");
             filterComboBox.getItems().add("Top Rated");
             filterComboBox.getItems().add("Most Purchased");
@@ -83,15 +63,32 @@ public class TopPaneController {
         filterComboBox.setValue("Filter");
     }
 
+    public void newSession(){
+        if (main != null && main.getCurrentClient() != null) {
+            Client client = main.getCurrentClient();
+            currentClient.setText(client.getName() + " " + client.getSurname());
+            currentClient.setVisible(true);
+            profileBtn.setVisible(true);
+            cartBtn.setVisible(true);
+            signInBtn.setText("Logout");
+
+        } else {
+            currentClient.setVisible(false);
+            profileBtn.setVisible(false);
+            cartBtn.setVisible(false);
+            signInBtn.setText("Sign In");
+        }
+    }
+
     /**
      * Handle a click on the "sign in" btn
      */
     @FXML
-    public void signInBtn(){
-        if(client != null){ // if a client is connected
+    public void signInBtn() {
+        if (main.getCurrentClient() != null) { // if a client is connected we log him out
             main.initSession(null);
             main.showMovieList();
-        }else{
+        } else {
             main.showConnection();
         }
 
@@ -101,7 +98,7 @@ public class TopPaneController {
      * Request the main app to show the movie list if you click ont the title
      */
     @FXML
-    public void titleClick(){
+    public void titleClick() {
         researchField.clear();
         categoryComboBox.setValue("Category");
         filterComboBox.setValue("Filter");
@@ -113,30 +110,34 @@ public class TopPaneController {
     }
 
     /**
-     *  Request the main app to show the client's profile
+     * Request the main app to show the client's profile
      */
     @FXML
-    public void accessProfileRequest(){ main.showProfile(); }
+    public void accessProfileRequest() {
+        main.showProfile();
+    }
 
 
     /**
-     *  Request the main app to show the client's cart
+     * Request the main app to show the client's cart
      */
     @FXML
-    public void accessCart(){ main.showCart(client); }
+    public void accessCart() {
+        main.showCart(main.getCurrentClient());
+    }
 
 
     /**
-     *  Update the category selected in the comboBox in the mainApp
+     * Update the category selected in the comboBox in the mainApp
      */
     @FXML
-    public void research(){
+    public void research() {
         selectedCategory = categoryComboBox.getValue();
         int category_id = categoryDAO.selectByName(selectedCategory).getCategory_id();
         main.setCategory_id(category_id);
-        if(!researchField.getText().isEmpty()){
+        if (!researchField.getText().isEmpty()) {
             main.setResearch(researchField.getText());
-        }else{
+        } else {
             main.setResearch(null);
         }
         main.showMovieList();
@@ -146,11 +147,11 @@ public class TopPaneController {
      * Update the filter selected in the comboBox in the mainApp
      */
     @FXML
-    public void filter(){
+    public void filter() {
         String selectedFilter = "Filter";
-        try{
+        try {
             selectedFilter = filterComboBox.getValue();
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
 
         }
 
@@ -158,10 +159,10 @@ public class TopPaneController {
         main.setFilter(selectedFilter);
         main.showMovieList();
 
-        if(!selectedFilter.equals("Filter")){
+        if (!selectedFilter.equals("Filter")) {
             researchField.setDisable(true);
             categoryComboBox.setDisable(true);
-        }else{
+        } else {
             researchField.setDisable(false);
             categoryComboBox.setDisable(false);
         }

@@ -27,7 +27,6 @@ public class PurchaseController {
     private Button payBtn;
 
     private MainApp main;
-    private Client client;
     private PurchaseDAO purchaseDAO;
     private HashMap<Movie, Float> movies;
     private DecimalFormat df;
@@ -41,15 +40,11 @@ public class PurchaseController {
         this.main = mainApp;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
     @FXML
     public void initialize() {
 
-        if (client != null) {
-
+        if (main!=null && main.getCurrentClient() != null) {
+            Client client = main.getCurrentClient();
             cartBox.getChildren().clear();
             ArrayList<Integer> purchaseIds = purchaseDAO.getPurchaseIds(client.getClient_id());
             for(Integer purchaseId : purchaseIds){
