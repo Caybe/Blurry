@@ -41,7 +41,7 @@ public class WishListController {
             wishBox.getChildren().clear();
             for (Movie movie : movies) {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("../view/MovieElemPane.fxml"));
+                loader.setLocation(getClass().getResource("/view/MovieElemPane.fxml"));
                 try {
                     AnchorPane moviePane = (AnchorPane) loader.load();
                     MovieElemController movieElemController = loader.getController();

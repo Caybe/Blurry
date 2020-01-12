@@ -15,9 +15,9 @@
          <children>
             <BorderPane prefHeight="45.0" prefWidth="1187.0">
                <left>
-                  <ImageView fitHeight="86.0" fitWidth="253.0" onMouseClicked="#titleClick" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                  <ImageView fx:id="logoImg" fitHeight="86.0" fitWidth="253.0" onMouseClicked="#titleClick" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                      <image>
-                        <Image url="@../images/logos/logov2.png" />
+                        <Image url="@../../images/logos/logov2.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />

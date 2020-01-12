@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 import model.Client;
 import model.Movie;
 
+import java.awt.*;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -29,6 +31,8 @@ public class MainApp extends Application {
     private AnchorPane purchasePane;
     private AnchorPane cartPane;
     private AnchorPane wishPane;
+    private AnchorPane personPane;
+    private AnchorPane personManagementPane;
     private TopPaneController topPaneController;
     private ProfileController profileController;
     private MovieManagementController movieManagementController;
@@ -37,6 +41,8 @@ public class MainApp extends Application {
     private CartController cartController;
     private PurchaseController purchaseController;
     private WishListController wishListController;
+    private PersonController personController;
+    private PersonManagementController personManagementController;
     private int category_id;
     private String research;
     private String filter;
@@ -46,7 +52,7 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws Exception{
         this.primaryStage = primaryStage;
         primaryStage.setTitle("Blurry");
-
+        primaryStage.getIcons().add(new Image(MainApp.class.getResourceAsStream("icon.png")));
         initMainView();
         Platform.runLater(new Runnable() {
             @Override
@@ -76,14 +82,14 @@ public class MainApp extends Application {
     private void initMainView(){
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("../view/MainView.fxml"));
+            loader.setLocation(MainApp.class.getResource("/view/MainView.fxml"));
             mainPane = (AnchorPane) loader.load();
             Scene scene = new Scene(mainPane);
             // Getting the BorderPane of the MainView
             BorderPane mainBorderPane = (BorderPane) mainPane.getChildren().get(0);
 
             try {
-                FileInputStream input = new FileInputStream("src/images/logos/logov2.png");
+                FileInputStream input = new FileInputStream("images/logos/logov2.png");
                 Image image = new Image(input);
                 ImageView imageView = new ImageView(image);
                 mainBorderPane.setCenter(imageView);
@@ -108,7 +114,7 @@ public class MainApp extends Application {
     public void showTopPane(){
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("../view/TopPane.fxml"));
+            loader.setLocation(MainApp.class.getResource("/view/TopPane.fxml"));
             AnchorPane topPane = (AnchorPane) loader.load();
             // Getting the BorderPane of the MainView
             BorderPane mainBorderPane = (BorderPane) mainPane.getChildren().get(0);
@@ -130,7 +136,7 @@ public class MainApp extends Application {
     public void showMovieList(){
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("../view/MovieListPane.fxml"));
+            loader.setLocation(MainApp.class.getResource("/view/MovieListPane.fxml"));
             AnchorPane movieListPane = (AnchorPane) loader.load();
             // Getting the BorderPane of the MainView
             BorderPane mainBorderPane = (BorderPane) mainPane.getChildren().get(0);
@@ -183,7 +189,7 @@ public class MainApp extends Application {
         try{
             if(movieController == null){
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(MainApp.class.getResource("../view/MoviePane.fxml"));
+                loader.setLocation(MainApp.class.getResource("/view/MoviePane.fxml"));
                 moviePane = (AnchorPane) loader.load();
                 //Allowing Controller to access the view
                 movieController = loader.getController();
@@ -210,7 +216,7 @@ public class MainApp extends Application {
 
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("../view/ConnectionPane.fxml"));
+            loader.setLocation(MainApp.class.getResource("/view/ConnectionPane.fxml"));
             AnchorPane connectionPane = (AnchorPane) loader.load();
             // Getting the BorderPane of the MainView
             BorderPane mainBorderPane = (BorderPane) mainPane.getChildren().get(0);
@@ -234,7 +240,7 @@ public class MainApp extends Application {
     public void showRegistration(){
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("../view/RegistrationPane.fxml"));
+            loader.setLocation(MainApp.class.getResource("/view/RegistrationPane.fxml"));
             AnchorPane registrationPane = (AnchorPane) loader.load();
             // Getting the BorderPane of the MainView
             BorderPane mainBorderPane = (BorderPane) mainPane.getChildren().get(0);
@@ -258,7 +264,7 @@ public class MainApp extends Application {
         try{
             if(profileController == null){
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(MainApp.class.getResource("../view/ProfilePane.fxml"));
+                loader.setLocation(MainApp.class.getResource("/view/ProfilePane.fxml"));
                 profilePane = (AnchorPane) loader.load();
                 //Allowing Controller to access the view
                 profileController = loader.getController();
@@ -283,7 +289,7 @@ public class MainApp extends Application {
         try{
             if(movieManagementController == null){
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(MainApp.class.getResource("../view/MovieManagementPane.fxml"));
+                loader.setLocation(MainApp.class.getResource("/view/MovieManagementPane.fxml"));
                 movieManagementPane = (AnchorPane) loader.load();
                 //Allowing Controller to access the view
                 movieManagementController = loader.getController();
@@ -302,9 +308,9 @@ public class MainApp extends Application {
         }
     }
     /**
-    * Show the file browser window
+    * Show the image browser window for a movie
     */
-    public void showFileBrowser(){
+    public void showMovieImageBrowser(){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open File");
 
@@ -314,12 +320,48 @@ public class MainApp extends Application {
                 ,new FileChooser.ExtensionFilter("PNG Files", "*.png")
         );
         if(movieManagementController != null){
-
             movieManagementController.setImage(fileChooser.showOpenDialog(primaryStage).getAbsolutePath()) ;
         }
 
     }
+    /**
+     * Show the image browser window for a person
+     */
+    public void showPersonImageBrowser(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open File");
 
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("All Files", "*.jpg" , "*.jpeg" , "*.png")
+                ,new FileChooser.ExtensionFilter("JPG Files", "*.jpg", "*.jpeg")
+                ,new FileChooser.ExtensionFilter("PNG Files", "*.png")
+        );
+        if(personManagementController != null){
+            personManagementController.setImage(fileChooser.showOpenDialog(primaryStage).getAbsolutePath()) ;
+        }
+
+    }
+
+    /**
+     *  Show the movie browser window
+     */
+    public void showMovieBrowser() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open File");
+
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("All Files", "*.mkv" , "*.mp4" , "*.avi")
+                ,new FileChooser.ExtensionFilter("MKV Files", "*.mkv")
+                ,new FileChooser.ExtensionFilter("MP4 Files", "*.mp4")
+                ,new FileChooser.ExtensionFilter("AVI Files", "*.avi")
+        );
+
+        if(movieManagementController != null){
+
+            movieManagementController.setMovieFile(fileChooser.showOpenDialog(primaryStage).getAbsolutePath()); ;
+        }
+
+    }
 
     /**
      * Show the client's cart
@@ -329,7 +371,7 @@ public class MainApp extends Application {
         try{
             if(cartController == null){
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(MainApp.class.getResource("../view/CartPane.fxml"));
+                loader.setLocation(MainApp.class.getResource("/view/CartPane.fxml"));
                 cartPane = (AnchorPane) loader.load();
                 //Allowing Controller to access the view
                 cartController = loader.getController();
@@ -349,6 +391,61 @@ public class MainApp extends Application {
     }
 
     /**
+     * Show person details
+     * @param personId
+     */
+    public void showPerson(int personId) {
+        try{
+            if(personController == null){
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(MainApp.class.getResource("/view/PersonPane.fxml"));
+                personPane = (AnchorPane) loader.load();
+                //Allowing Controller to access the view
+                personController = loader.getController();
+                personController.setMain(this);
+            }
+            personController.initialize();
+            // Getting the BorderPane of the MainViews
+            BorderPane mainBorderPane = (BorderPane) mainPane.getChildren().get(0);
+            //Adding pane to the center of the borderPane
+            mainBorderPane.setCenter(personPane);
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Show person details
+     * @param personId
+     */
+    public void showPersonManagement(int personId) {
+        try{
+            if(personManagementController == null){
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(MainApp.class.getResource("/view/PersonManagementPane.fxml"));
+                personManagementPane = (AnchorPane) loader.load();
+                //Allowing Controller to access the view
+                personManagementController = loader.getController();
+                personManagementController.setMain(this);
+                personManagementController.setPersonToDisplay(personId);
+            }
+            personManagementController.initialize();
+            // Getting the BorderPane of the MainViews
+            BorderPane mainBorderPane = (BorderPane) mainPane.getChildren().get(0);
+            //Adding pane to the center of the borderPane
+            mainBorderPane.setCenter(personManagementPane);
+
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      *  Show Client's purchases
      *  @param client
      */
@@ -356,7 +453,7 @@ public class MainApp extends Application {
         try {
             if (purchaseController == null) {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(MainApp.class.getResource("../view/PurchasePane.fxml"));
+                loader.setLocation(MainApp.class.getResource("/view/PurchasePane.fxml"));
                 purchasePane = (AnchorPane) loader.load();
                 //Allowing Controller to access the view
                 purchaseController = loader.getController();
@@ -379,7 +476,7 @@ public class MainApp extends Application {
     public void showStatisticPane(){
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("../view/StatisticPane.fxml"));
+            loader.setLocation(MainApp.class.getResource("/view/StatisticPane.fxml"));
             ScrollPane statPane = (ScrollPane) loader.load();
             //Allowing Controller to access the view
             StatisticController statisticController = loader.getController();
@@ -396,7 +493,7 @@ public class MainApp extends Application {
     public void showClientList(){
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("../view/ClientListPane.fxml"));
+            loader.setLocation(MainApp.class.getResource("/view/ClientListPane.fxml"));
             AnchorPane clientPane = (AnchorPane) loader.load();
             //Allowing Controller to access the view
             ClientListController clientListController = loader.getController();
@@ -415,7 +512,7 @@ public class MainApp extends Application {
         try {
             if (wishListController == null) {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(MainApp.class.getResource("../view/WishListPane.fxml"));
+                loader.setLocation(MainApp.class.getResource("/view/WishListPane.fxml"));
                 wishPane = (AnchorPane) loader.load();
                 //Allowing Controller to access the view
                 wishListController = loader.getController();

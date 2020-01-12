@@ -11,6 +11,7 @@ import javafx.scene.text.Text;
 import model.Movie;
 
 
+import javax.imageio.ImageIO;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -91,15 +92,15 @@ public class MovieThumbnailController {
 
     @FXML
     public void initialize() {
-        // Applying a blurry effect on the images
-        BoxBlur bb = new BoxBlur();
-        bb.setWidth(20);
-        bb.setHeight(10);
-        bb.setIterations(30);
-        image1.setEffect(bb);
-        image2.setEffect(bb);
-        image3.setEffect(bb);
-        image4.setEffect(bb);
+//        // Applying a blurry effect on the images
+//        BoxBlur bb = new BoxBlur();
+//        bb.setWidth(20);
+//        bb.setHeight(10);
+//        bb.setIterations(30);
+//        image1.setEffect(bb);
+//        image2.setEffect(bb);
+//        image3.setEffect(bb);
+//        image4.setEffect(bb);
 
         // Movie 1
         initMovie(movie1, movie_id1, image1, title1);
@@ -159,7 +160,7 @@ public class MovieThumbnailController {
 
         } catch (FileNotFoundException | NullPointerException e) {
             try {
-                input = new FileInputStream("src/images/movie/default.png");
+                input = new FileInputStream("images/movie/default.png");
                 Image image = new Image(input);
                 imageView.setImage(image);
             } catch (FileNotFoundException ex) {

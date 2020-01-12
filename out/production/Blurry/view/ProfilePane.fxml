@@ -96,6 +96,11 @@
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin></Button>
+                  <Button mnemonicParsing="false" onAction="#addPersonBtn" prefHeight="35.0" prefWidth="130.0" styleClass="bouton" text="Add Person">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Button>
                   <Button fx:id="statBtn" mnemonicParsing="false" onAction="#statBtnHandler" prefHeight="35.0" prefWidth="130.0" styleClass="bouton" text="Statistics">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

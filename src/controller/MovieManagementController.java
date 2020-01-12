@@ -11,10 +11,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import model.Actor;
-import model.Category;
-import model.Director;
-import model.Movie;
+import model.*;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -64,26 +62,26 @@ public class MovieManagementController {
     private Button deleteBtn;
 
 
-    private final String IMAGEPATH = "src\\images\\movie\\";
+    private final String IMAGEPATH = "images\\movie\\";
+    private final String MOVIEPATH = "movies\\";
     private MainApp main;
     private Movie movie;
     private MovieDao movieDao;
-    private ActorDAO actorDAO;
+    private PersonDAO personDAO;
     private CategoryDAO categoryDAO;
-    private DirectorDAO directorDAO;
     private RateDAO rateDAO;
-    private ArrayList<Actor> actors;
+    private ArrayList<Person> actors;
     private ArrayList<Category> categories;
-    private ArrayList<Director> directors;
+    private ArrayList<Person> directors;
+    private ArrayList<Person> people;
     private boolean addingMovie = false;
 
 
     public MovieManagementController() {
         movieDao = new MovieDao(Connect.getInstance());
-        actorDAO = new ActorDAO(Connect.getInstance());
-        directorDAO = new DirectorDAO(Connect.getInstance());
         categoryDAO = new CategoryDAO(Connect.getInstance());
         rateDAO = new RateDAO(Connect.getInstance());
+        personDAO = new PersonDAO(Connect.getInstance());
     }
 
     public void setMain(MainApp mainApp) {
@@ -97,9 +95,9 @@ public class MovieManagementController {
     public void setMovieToDisplay(int movie_id) {
         if(movie_id != 0 ){
             movie = movieDao.selectRow(movie_id);
-            actors = actorDAO.getByMovie(movie.getMovie_id());
+            actors = personDAO.getActorsByMovie(movie.getMovie_id());
             categories = categoryDAO.getByMovie(movie.getMovie_id());
-            directors = directorDAO.getByMovie(movie.getMovie_id());
+            directors = personDAO.getDirectorsByMovir(movie.getMovie_id());
             saveBtn.setText("Save");
             addingMovie = false;
             deleteBtn.setVisible(true);
@@ -130,21 +128,38 @@ public class MovieManagementController {
         Path target = Paths.get(IMAGEPATH + pathParts[pathParts.length-1]);
         movie.setImage(IMAGEPATH + pathParts[pathParts.length-1]);
         try {
-            Files.copy(source,target);
+            Files.copy(source, target);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        /* Init image */
         try {
             FileInputStream input = new FileInputStream(target.toString());
             Image image = new Image(input);
-
+            imageMovie.setImage(image);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Copy and paste the movie in the appropriate folder
+     * Update the database with the new path
+     * @param path
+     */
+    public void setMovieFile(String path){
+
+        Path source = Paths.get(path);
+
+        String []  pathParts = path.split("\\\\");
+        Path target = Paths.get(MOVIEPATH + pathParts[pathParts.length-1]);
+        movie.setMoviePath(MOVIEPATH + pathParts[pathParts.length-1]);
+        try {
+            Files.copy(source, target);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     public void initialize(){
@@ -191,7 +206,7 @@ public class MovieManagementController {
 
     private void createActorList() {
         actorBox.getChildren().clear();
-        for(Actor actor: actors){
+        for(Person actor: actors){
             HBox hbox = new HBox();
             hbox.getStyleClass().add("hbox");
             hbox.setSpacing(5);
@@ -200,7 +215,7 @@ public class MovieManagementController {
             deleteButton.getStyleClass().add("bouton");
             Text actorName = new Text();
             actorName.setFill(Color.WHITE);
-            actorName.setText(actor.getName());
+            actorName.setText(actor.getSurname() + " " + actor.getName());
             deleteButton.addEventHandler(ActionEvent.ACTION, event -> deleteActorBtnHandler(actor));
 
             hbox.getChildren().addAll(actorName, deleteButton);
@@ -208,13 +223,13 @@ public class MovieManagementController {
         }
     }
 
-    public void deleteActorBtnHandler(Actor actor){
+    public void deleteActorBtnHandler(Person actor){
         actors.remove(actor);
         createActorList();
     }
     private void createDirectorList() {
         directorBox.getChildren().clear();
-        for(Director director: directors){
+        for(Person director: directors){
             HBox hbox = new HBox();
             hbox.getStyleClass().add("hbox");
             hbox.setSpacing(5);
@@ -231,7 +246,7 @@ public class MovieManagementController {
         }
     }
 
-    private void deleteDirectorBtnHandler(Director director) {
+    private void deleteDirectorBtnHandler(Person director) {
         directors.remove(director);
         createDirectorList();
     }
@@ -261,10 +276,14 @@ public class MovieManagementController {
 
 
     @FXML
-    public void browseBtn(){
-        main.showFileBrowser();
+    public void browseImageBtn(){
+        main.showMovieImageBrowser();
     }
 
+    @FXML
+    public void browseMovieBtn(){
+        main.showMovieBrowser();
+    }
     @FXML
     public void backBtn() {
         main.showMovie(movie.getMovie_id());
@@ -287,15 +306,36 @@ public class MovieManagementController {
     }
 
     @FXML
+    public void suggestActor(){
+        ArrayList<String> fullnames = new ArrayList<>();
+        people = personDAO.researchPerson(addActorField.getText());
+        for(Person person : people){
+            fullnames.add(person.getSurname() + " " + person.getName());
+        }
+        TextFields.bindAutoCompletion(addActorField, fullnames);
+    }
+
+    @FXML
+    public void suggestDirector(){
+        ArrayList<String> fullnames = new ArrayList<>();
+        people = personDAO.researchPerson(addDirectorField.getText());
+        for(Person person : people){
+            fullnames.add(person.getSurname() + " " + person.getName());
+        }
+        TextFields.bindAutoCompletion(addDirectorField, fullnames);
+    }
+
+    @FXML
     public void addActor(){
         if(!addActorField.getText().isEmpty()){
-            Actor actor = new Actor();
-            actor.setActor_id(0);
-            actor.setName(addActorField.getText().trim());
-            if(!actorDAO.exist(actor.getName())){
-                actorDAO.insertRow(actor.getName());
-            }
-            actor.setActor_id(actorDAO.selectByName(actor.getName()).getActor_id());
+            Person actor = new Person();
+            actor.setPersonId(0);
+            String parts[] = addActorField.getText().split("\\s", 2);
+            String surname = parts[0].trim();
+            String name = parts[1].trim();
+            actor.setSurname(surname);
+            actor.setName(name);
+            actor.setPersonId(personDAO.selectByName(actor.getSurname(), actor.getName()).getPersonId());
             actors.add(actor);
             createActorList();
             addActorField.setText(null);
@@ -304,13 +344,14 @@ public class MovieManagementController {
     @FXML
     public void addDirector(){
         if(!addDirectorField.getText().isEmpty()){
-            Director director = new Director();
-            director.setDirector_id(0);
-            director.setName(addDirectorField.getText().trim());
-            if(!directorDAO.exist(director.getName())){
-                directorDAO.insertRow(director.getName());
-            }
-            director.setDirector_id(directorDAO.selectByName(director.getName()).getDirector_id());
+            Person director = new Person();
+            director.setPersonId(0);
+            String parts[] = addDirectorField.getText().split("\\s", 2);
+            String surname = parts[0].trim();
+            String name = parts[1].trim();
+            director.setSurname(surname);
+            director.setName(name);
+            director.setPersonId(personDAO.selectByName(director.getSurname(), director.getName()).getPersonId());
             directors.add(director);
             createDirectorList();
             addDirectorField.setText(null);
@@ -375,7 +416,7 @@ public class MovieManagementController {
 
     private void updateActors() {
         movie.setActors(actors);
-        actorDAO.updateMovieActors(movie.getMovie_id(), actors);
+        personDAO.updateMovieActors(movie.getMovie_id(), actors);
     }
 
     private void updateCategories(){
@@ -385,7 +426,7 @@ public class MovieManagementController {
 
     private  void updateDirectors(){
         movie.setDirectors(directors);
-        directorDAO.updateMovieDirectors(movie.getMovie_id(), directors);
+        personDAO.updateMovieDirectors(movie.getMovie_id(), directors);
     }
 
     /**

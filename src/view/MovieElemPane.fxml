@@ -14,7 +14,7 @@
                <children>
                   <ImageView fx:id="imageView" fitHeight="127.0" fitWidth="96.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/movie/default.png" />
+                        <Image url="@../../images/movie/default.png" />
                      </image>
                      <HBox.margin>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />

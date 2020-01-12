@@ -96,7 +96,7 @@ public class MovieListController {
                     }
                     noResultTxt.setVisible(false);
                     FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource("../view/MovieThumbnailPane.fxml"));
+                    loader.setLocation(getClass().getResource("/view/MovieThumbnailPane.fxml"));
                     AnchorPane moviePane = (AnchorPane) loader.load();
                     MovieThumbnailController movieThumbnailController = loader.getController();
                     movieThumbnailController.setMainApp(main);

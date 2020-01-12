@@ -8,14 +8,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="300.0" prefHeight="300.0" prefWidth="800.0" styleClass="background" stylesheets="@styleSheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MovieController">
+<AnchorPane maxHeight="300.0" maxWidth="800.0" prefHeight="300.0" prefWidth="800.0" styleClass="background" stylesheets="@styleSheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MovieController">
    <children>
       <BorderPane layoutX="239.0" layoutY="86.0" maxHeight="300.0" prefHeight="542.0" prefWidth="1000.0" styleClass="border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <right>
             <ImageView fx:id="imageMovie" fitHeight="417.0" fitWidth="276.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </BorderPane.margin></ImageView>
+               </BorderPane.margin>
+            </ImageView>
          </right>
          <center>
             <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="TOP_LEFT">
@@ -40,19 +41,35 @@
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Text>
-                        <Text fx:id="actorsTxt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
-                           <VBox.margin>
-                              <Insets bottom="10.0" />
-                           </VBox.margin></Text>
+                        <HBox fx:id="actorBox" alignment="BASELINE_LEFT">
+                           <children>
+                              <Text fx:id="actorsTxt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </Text>
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </HBox>
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Director:">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Text>
-                        <Text fx:id="directorTxt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
-                           <VBox.margin>
-                              <Insets bottom="10.0" />
-                           </VBox.margin></Text>
+                        <HBox fx:id="directorBox" alignment="BASELINE_LEFT">
+                           <children>
+                              <Text fx:id="directorTxt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </Text>
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </HBox>
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Categories:">
                            <font>
                               <Font name="System Bold" size="15.0" />
@@ -79,7 +96,8 @@
                               <Text fx:id="releaseTxt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="release">
                                  <HBox.margin>
                                     <Insets top="5.0" />
-                                 </HBox.margin></Text>
+                                 </HBox.margin>
+                              </Text>
                            </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
@@ -95,7 +113,8 @@
                               <Text fx:id="rateTxt" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="rate">
                                  <HBox.margin>
                                     <Insets top="5.0" />
-                                 </HBox.margin></Text>
+                                 </HBox.margin>
+                              </Text>
                            </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
@@ -166,6 +185,11 @@
                            <BorderPane.margin>
                               <Insets bottom="5.0" left="5.0" right="15.0" />
                            </BorderPane.margin>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="watchBtn" alignment="CENTER" mnemonicParsing="false" onAction="#watchBtnHandler" prefHeight="33.0" prefWidth="126.0" styleClass="bouton" text="Watch">
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </HBox.margin>

@@ -1,6 +1,8 @@
 package dao;
 
+import connection.Connect;
 import model.Director;
+import model.Person;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -117,11 +119,11 @@ public class DirectorDAO {
         try{
             ResultSet result = this.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(sql);
 
-
             while (result.next()){
                 Director director = new Director();
                 director.setDirector_id(result.getInt("director_id"));
                 director.setName(result.getString("name"));
+                Person person = new Person();
 
                 directors.add(director);
             }

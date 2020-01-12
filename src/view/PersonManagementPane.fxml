@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="300.0" maxWidth="800.0" prefHeight="300.0" prefWidth="800.0" styleClass="background" stylesheets="@styleSheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PersonManagementController">
+   <children>
+      <BorderPane layoutX="239.0" layoutY="86.0" maxHeight="300.0" prefHeight="542.0" prefWidth="1000.0" styleClass="border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <right>
+            <VBox alignment="CENTER_RIGHT" spacing="5.0">
+               <children>
+                  <ImageView fx:id="imagePerson" fitHeight="417.0" fitWidth="276.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </BorderPane.margin>
+                  </ImageView>
+                  <Button mnemonicParsing="false" onAction="#browseImage" styleClass="bouton" text="Browse" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+         </right>
+         <center>
+            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="TOP_LEFT">
+               <children>
+                  <VBox prefHeight="242.0" prefWidth="423.0" spacing="5.0">
+                     <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Birography:">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                        </Text>
+                        <TextArea fx:id="bioArea" prefHeight="200.0" prefWidth="200.0" />
+                        <HBox spacing="5.0">
+                           <children>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Birthday:">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Text>
+                              <DatePicker fx:id="birthdayDate" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="5.0">
+                           <children>
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Place of birth:">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="birthPlaceField" />
+                           </children>
+                        </HBox>
+                        <HBox spacing="5.0">
+                           <children>
+                              <Text fx:id="deathLab" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of death:">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Text>
+                              <DatePicker fx:id="deathDate" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
+         </center>
+         <bottom>
+            <BorderPane prefHeight="47.0" prefWidth="974.0" BorderPane.alignment="CENTER">
+               <left>
+                <Button mnemonicParsing="false" onAction="#backBtn" styleClass="bouton" text="Back" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets bottom="5.0" left="15.0" />
+                     </BorderPane.margin>
+                  </Button>
+               </left>
+               <right>
+                  <HBox alignment="CENTER_LEFT" spacing="5.0">
+                     <children>
+                        <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#savePerson" styleClass="bouton" text="Save" BorderPane.alignment="CENTER">
+                           <BorderPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </BorderPane.margin>
+                        </Button>
+                        <Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#savePerson" styleClass="bouton" text="Delete Person" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+               </right>
+            </BorderPane>
+         </bottom>
+         <top>
+            <HBox spacing="5.0">
+               <children>
+                  <TextField fx:id="surnameField" promptText="Surname" />
+                  <TextField fx:id="nameField" promptText="Name" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <BorderPane.margin>
+                  <Insets left="25.0" />
+               </BorderPane.margin>
+            </HBox>
+         </top>
+      </BorderPane>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</AnchorPane>

@@ -3,10 +3,17 @@
     <output-path>$PROJECT_DIR$/out/artifacts/Blurry_jar</output-path>
     <root id="archive" name="Blurry.jar">
       <element id="module-output" name="Blurry" />
+      <element id="extracted-dir" path="D:/Programmes/Java/javafx-sdk-13.0.1/lib/javafx.graphics.jar" path-in-jar="/" />
       <element id="library" level="project" name="slf4j-api-1.6.6" />
-      <element id="library" level="project" name="postgresql-42.2.8" />
-      <element id="library" level="project" name="iText7-Core-7.1" />
-      <element id="file-copy" path="$PROJECT_DIR$/Blurry.iml" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/postgresql-42.2.8.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Programmes/Java/javafx-sdk-13.0.1/lib/src.zip" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Programmes/Java/javafx-sdk-13.0.1/lib/javafx-swt.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Programmes/Java/javafx-sdk-13.0.1/lib/javafx.web.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Programmes/Java/javafx-sdk-13.0.1/lib/javafx.base.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Programmes/Java/javafx-sdk-13.0.1/lib/javafx.fxml.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Programmes/Java/javafx-sdk-13.0.1/lib/javafx.media.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Programmes/Java/javafx-sdk-13.0.1/lib/javafx.swing.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Programmes/Java/javafx-sdk-13.0.1/lib/javafx.controls.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

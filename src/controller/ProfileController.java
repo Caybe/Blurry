@@ -9,6 +9,7 @@ import javafx.scene.text.Text;
 import model.Client;
 import model.PasswordHash;
 
+import java.net.PasswordAuthentication;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.chrono.ChronoLocalDate;
@@ -85,6 +86,7 @@ public class ProfileController {
         dialog.setTitle("Profile Modification");
         dialog.setHeaderText("Please confirm your identity");
         dialog.setContentText("Password:");
+        dialog.getEditor().hashCode();
         Optional<String> result = dialog.showAndWait();
 
         // checking password
@@ -220,6 +222,9 @@ public class ProfileController {
     public void addMovieBtn(){
         main.showMovieManagement(0);
     }
+
+    @FXML
+    private void addPersonBtn(){ main.showPersonManagement(0);}
 
     /**
      * Handle a click on the "Delete Account Button"

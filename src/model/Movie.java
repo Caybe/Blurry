@@ -9,11 +9,11 @@ public class Movie {
     private String description;
     private String release_date;
     private String image;
-    private ArrayList<Director> directors;
+    private String moviePath;
+    private ArrayList<Person> directors;
     private ArrayList<Category> categories;
-    private ArrayList<Actor> actors;
+    private ArrayList<Person> actors;
     private float price;
-
 
     //
     // Empty Constructor
@@ -92,19 +92,19 @@ public class Movie {
 
     public void setImage(String image) { this.image = image; }
 
-    public ArrayList<Actor> getActors() {
+    public ArrayList<Person> getActors() {
         return actors;
     }
 
-    public void setActors(ArrayList<Actor> actors) {
+    public void setActors(ArrayList<Person> actors) {
         this.actors = actors;
     }
 
-    public ArrayList<Director> getDirectors() {
+    public ArrayList<Person> getDirectors() {
         return directors;
     }
 
-    public void setDirectors(ArrayList<Director> directors) {
+    public void setDirectors(ArrayList<Person> directors) {
         this.directors = directors;
     }
 
@@ -114,6 +114,14 @@ public class Movie {
 
     public void setCategories(ArrayList<Category> categories) {
         this.categories = categories;
+    }
+
+    public String getMoviePath() {
+        return moviePath;
+    }
+
+    public void setMoviePath(String moviePath) {
+        this.moviePath = moviePath;
     }
 
     @Override

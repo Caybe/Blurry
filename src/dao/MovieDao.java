@@ -21,12 +21,13 @@ public class MovieDao {
 
         try {
             PreparedStatement statement = conn.prepareStatement("INSERT INTO movie (title, description," +
-                    " release_date, image, price) VALUES(?,?,?,?,?) ");
+                    " release_date, image, movie_path, price) VALUES(?,?,?,?,?,?) ");
             statement.setString(1,movie.getTitle());
             statement.setString(2,movie.getDescription());
             statement.setString(3, movie.getRelease_date());
             statement.setString(4, movie.getImage());
-            statement.setFloat(5, movie.getPrice());
+            statement.setString(5, movie.getMoviePath());
+            statement.setFloat(6, movie.getPrice());
 
             statement.executeUpdate();
 
@@ -54,13 +55,14 @@ public class MovieDao {
 
     public void updateRow(Movie movie){
         try {
-            PreparedStatement statement = conn.prepareStatement("UPDATE movie SET title = ?, description = ?, release_date = ?, image = ?, price = ? WHERE movie_id =" + movie.getMovie_id());
+            PreparedStatement statement = conn.prepareStatement("UPDATE movie SET title = ?, description = ?, release_date = ?, image = ?, movie_path = ?, price = ? WHERE movie_id =" + movie.getMovie_id());
 
             statement.setString(1,movie.getTitle());
             statement.setString(2,movie.getDescription());
             statement.setString(3, movie.getRelease_date());
             statement.setString(4, movie.getImage());
-            statement.setFloat(5, movie.getPrice());
+            statement.setString(5, movie.getMoviePath());
+            statement.setFloat(6, movie.getPrice());
 
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -78,6 +80,7 @@ public class MovieDao {
 
             if(result.first()){
                 movie = new Movie(movie_id, result.getString("title"), result.getString("description"),result.getString("release_date"), result.getString("image"), result.getFloat("price"));
+                movie.setMoviePath(result.getString("movie_path"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -93,6 +96,7 @@ public class MovieDao {
 
             if(result.first()){
                 movie = new Movie(result.getInt("movie_id"), result.getString("title"), result.getString("description"),result.getString("release_date"), result.getString("image"), result.getFloat("price"));
+                movie.setMoviePath(result.getString("movie_path"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -169,7 +173,7 @@ public class MovieDao {
 
             while (result.next()){
                 Movie movie = new Movie(result.getInt("movie_id"), result.getString("title"), result.getString("description"), result.getString("release_date"), result.getString("image"), result.getFloat("price"));
-
+                movie.setMoviePath(result.getString("movie_path"));
                 movies.add(movie);
             }
         } catch (SQLException e) {

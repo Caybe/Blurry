@@ -1,7 +1,9 @@
 package dao;
 
+import connection.Connect;
 import model.Actor;
 import model.Movie;
+import model.Person;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -90,7 +92,7 @@ public class ActorDAO {
 
     public ArrayList<Actor> getAllRows(){
         ArrayList<Actor> actors = new ArrayList<>();
-        String sql = "SELECT * FROM actor";
+        String sql = "SELECT * FROM actor Order by name";
 
         try{
             ResultSet result = this.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(sql);

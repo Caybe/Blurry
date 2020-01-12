@@ -6,9 +6,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import model.Category;
 import model.Client;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class TopPaneController {
 
@@ -26,6 +31,8 @@ public class TopPaneController {
     private TextField researchField;
     @FXML
     private ComboBox<String> filterComboBox;
+    @FXML
+    private ImageView logoImg;
 
     private MainApp main;
     private Client client = null;
@@ -42,6 +49,15 @@ public class TopPaneController {
 
     @FXML
     public void initialize() {
+        FileInputStream input = null;
+        try {
+            input = new FileInputStream("images/logos/logov2.png");
+            Image image = new Image(input);
+            logoImg.setImage(image);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
         researchField.setDisable(false);
         categoryComboBox.setDisable(false);
         newSession();

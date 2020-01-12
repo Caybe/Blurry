@@ -50,7 +50,7 @@ public class PurchaseController {
             for(Integer purchaseId : purchaseIds){
                 movies = purchaseDAO.getClientPurchase(client.getClient_id(), purchaseId);
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("../view/OnePurchasePane.fxml"));
+                loader.setLocation(getClass().getResource("/view/OnePurchasePane.fxml"));
                 try {
                     AnchorPane moviePane = (AnchorPane) loader.load();
                     OnePurchaseController onePurchaseController = loader.getController();

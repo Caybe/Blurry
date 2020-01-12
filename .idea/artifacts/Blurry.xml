@@ -1,0 +1,27 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="Blurry">
+    <output-path>$PROJECT_DIR$/out/artifacts/Blurry</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="controller.MainApp" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="icons">
+          <JavaFxApplicationIcons>
+            <option name="windowsIcon" value="$PROJECT_DIR$/images/logos/favicon.ico" />
+          </JavaFxApplicationIcons>
+        </option>
+        <option name="title" value="Blurry" />
+        <option name="vendor" value="Mathias Cabezas" />
+        <option name="version" value="1.0" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="Blurry.jar">
+        <element id="module-output" name="Blurry" />
+      </element>
+      <element id="library" level="project" name="postgresql-42.2.8" />
+      <element id="artifact" artifact-name="Blurry:jar" />
+    </root>
+  </artifact>
+</component>

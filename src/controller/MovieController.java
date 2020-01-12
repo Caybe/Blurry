@@ -4,16 +4,23 @@ import connection.Connect;
 import dao.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import model.*;
+import org.controlsfx.control.HyperlinkLabel;
 
+import java.awt.*;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class MovieController {
     @FXML
@@ -52,12 +59,17 @@ public class MovieController {
     private Text yourRateTxt;
     @FXML
     private Button wishBtn;
+    @FXML
+    private Button watchBtn;
+    @FXML
+    private HBox actorBox;
+    @FXML
+    private HBox directorBox;
 
     private MainApp main;
     private Movie movie;
     private MovieDao movieDao;
-    private ActorDAO actorDAO;
-    private DirectorDAO directorDAO;
+    private PersonDAO personDAO;
     private CategoryDAO categorieDAO;
     private PurchaseDAO purchaseDAO;
     private RateDAO rateDAO;
@@ -69,8 +81,7 @@ public class MovieController {
 
         movieDao = new MovieDao(Connect.getInstance());
         movie = movieDao.selectRow(1);
-        actorDAO = new ActorDAO(Connect.getInstance());
-        directorDAO = new DirectorDAO(Connect.getInstance());
+        personDAO = new PersonDAO(Connect.getInstance());
         categorieDAO = new CategoryDAO(Connect.getInstance());
         purchaseDAO = new PurchaseDAO(Connect.getInstance());
         rateDAO = new RateDAO(Connect.getInstance());
@@ -91,19 +102,9 @@ public class MovieController {
 
     @FXML
     public void initialize(){
-        /* Radio buttons are not visible if your not logged in */
-        rd1.setVisible(false);
-        rd2.setVisible(false);
-        rd3.setVisible(false);
-        rd4.setVisible(false);
-        rd5.setVisible(false);
-        rd1.setToggleGroup(toggleGroup);
-        rd2.setToggleGroup(toggleGroup);
-        rd3.setToggleGroup(toggleGroup);
-        rd4.setToggleGroup(toggleGroup);
-        rd5.setToggleGroup(toggleGroup);
-        yourRateTxt.setVisible(false);
+        initRate();
 
+        watchBtn.setVisible(false);
         wishBtn.setVisible(true);
         successTxt.setVisible(false);
         titleTxt.setText(movie.getTitle());
@@ -112,17 +113,13 @@ public class MovieController {
         rateTxt.setText(rate);
         releaseTxt.setText(movie.getRelease_date());
         priceTxt.setText(movie.getPrice() + "€");
-        actorsTxt.setText("");
-        for(Actor actor: actorDAO.getByMovie(movie.getMovie_id())){
-            actorsTxt.setText(actorsTxt.getText() + ", " + actor.getName());
-        }
-        //Removing the last coma in actors list
-        actorsTxt.setText(actorsTxt.getText().replaceFirst(",", ""));
 
-        directorTxt.setText("");
-        for(Director director: directorDAO.getByMovie(movie.getMovie_id())){
-            directorTxt.setText(directorTxt.getText() + ", " + director.getName());
-        }
+        /* Init actors */
+        InitActors(personDAO.getActorsByMovie(movie.getMovie_id()));
+
+        /* Init Directors */
+        InitDirectors();
+
         //Removing the last coma in directors list
         directorTxt.setText(directorTxt.getText().replaceFirst(",", ""));
 
@@ -133,7 +130,7 @@ public class MovieController {
 
         } catch (FileNotFoundException | NullPointerException e) {
             try {
-                FileInputStream input = new FileInputStream("src/images/movie/default.png");
+                FileInputStream input = new FileInputStream("images/movie/default.png");
                 Image image = new Image(input);
                 imageMovie.setImage(image);
             } catch (FileNotFoundException ex) {
@@ -172,6 +169,7 @@ public class MovieController {
                 rd4.setVisible(true);
                 rd5.setVisible(true);
                 yourRateTxt.setVisible(true);
+                watchBtn.setVisible(true);
                 if(rateDAO.exist(movie.getMovie_id(), client.getClient_id())){
                     disableRate();
                     setSelectedRadioButton();
@@ -192,6 +190,45 @@ public class MovieController {
             wishBtn.setVisible(false);
         }
 
+    }
+
+    private void InitDirectors() {
+        directorTxt.setText("");
+        for(Person director: personDAO.getDirectorsByMovir(movie.getMovie_id())){
+            directorTxt.setText(directorTxt.getText() + ", " + director.getSurname() + " " + director.getName());
+        }
+    }
+
+    private void InitActors(ArrayList<Person> actorsByMovie) {
+        actorBox.getChildren().clear();
+        for (Person actor : actorsByMovie) {
+            Text separator = new Text();
+            separator.getStyleClass().add("whiteTxt");
+            separator.setText(", ");
+            Hyperlink actorLink = new Hyperlink();
+            actorLink.setText(actor.getSurname() + " " + actor.getName());
+            actorBox.getChildren().add(actorLink);
+            actorBox.getChildren().add(separator);
+        }
+        //Removing the last coma in actors list
+        if(actorBox.getChildren().size() > 0){
+            actorBox.getChildren().remove(actorBox.getChildren().size()-1);
+        }
+    }
+
+    private void initRate() {
+        /* Radio buttons are not visible if your not logged in */
+        rd1.setVisible(false);
+        rd2.setVisible(false);
+        rd3.setVisible(false);
+        rd4.setVisible(false);
+        rd5.setVisible(false);
+        rd1.setToggleGroup(toggleGroup);
+        rd2.setToggleGroup(toggleGroup);
+        rd3.setToggleGroup(toggleGroup);
+        rd4.setToggleGroup(toggleGroup);
+        rd5.setToggleGroup(toggleGroup);
+        yourRateTxt.setVisible(false);
     }
 
     /**
@@ -237,33 +274,50 @@ public class MovieController {
         }
     }
 
+    @FXML
+    private void watchBtnHandler(){
+        final Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+        File file = new File(movie.getMoviePath());
+        if (desktop != null && desktop.isSupported(Desktop.Action.OPEN)) {
+
+            try {
+                desktop.open(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            throw new UnsupportedOperationException("Open action not supported");
+        }
+
+    }
+
     public void displaySuccess(){
         successTxt.setText("Movie successfully added!");
         successTxt.setVisible(true);
     }
 
     @FXML
-    public void rate1(){
+    private void rate1(){
         setRate(1);
     }
 
     @FXML
-    public void rate2(){
+    private void rate2(){
         setRate(2);
     }
 
     @FXML
-    public void rate3(){
+    private void rate3(){
         setRate(3);
     }
 
     @FXML
-    public void rate4(){
+    private void rate4(){
         setRate(4);
     }
 
     @FXML
-    public void rate5(){
+    private void rate5(){
         setRate(5);
     }
 

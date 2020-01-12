@@ -66,11 +66,23 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                   </ImageView>
-                  <Button mnemonicParsing="false" onAction="#browseBtn" styleClass="bouton" text="Browse ">
-                     <VBox.margin>
-                        <Insets bottom="5.0" right="15.0" />
-                     </VBox.margin>
-                  </Button>
+                  <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#browseMovieBtn" styleClass="bouton" text="Browse Movie">
+                           <VBox.margin>
+                              <Insets bottom="5.0" right="15.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#browseImageBtn" styleClass="bouton" text="Browse Picture">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="15.0" top="5.0" />
+                     </padding>
+                  </HBox>
                </children>
             </VBox>
          </right>
@@ -105,7 +117,7 @@
                               <VBox fx:id="actorBox" maxWidth="300.0" prefHeight="36.0" prefWidth="287.0" />
                               <HBox prefHeight="26.0">
                                  <children>
-                                    <TextField fx:id="addActorField" onAction="#addActor" promptText="Add Actor" />
+                                    <TextField fx:id="addActorField" onAction="#addActor" onKeyTyped="#suggestActor" promptText="Add Actor" />
                                     <Button mnemonicParsing="false" onAction="#addActor" prefHeight="0.0" prefWidth="35.0" styleClass="bouton" text="+" />
                                  </children>
                               </HBox>
@@ -117,7 +129,7 @@
                               <VBox fx:id="directorBox" maxWidth="300.0" prefHeight="36.0" prefWidth="287.0" />
                               <HBox prefHeight="26.0" prefWidth="287.0">
                                  <children>
-                                    <TextField fx:id="addDirectorField" onAction="#addDirector" promptText="Add Director" />
+                                    <TextField fx:id="addDirectorField" onAction="#addDirector" onKeyTyped="#suggestDirector" promptText="Add Director" />
                                     <Button mnemonicParsing="false" onAction="#addDirector" prefHeight="0.0" prefWidth="35.0" styleClass="bouton" text="+" />
                                  </children>
                               </HBox>
